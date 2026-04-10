@@ -288,6 +288,10 @@ const hsnSections = [
   { id: "outcomes",       label: "Outcomes"           },
 ];
 
+const habitSections = [
+  { id: "preview",       label: "Preview"           },
+];
+
 const erpModules = [
   { label: "HR Administration",    desc: "560 employees, attendance tracking, grievance management, department distribution, and upcoming celebrations.",      img: "/case-studies/erp/HR_Dashboard.jpg",             caption: "HR Admin Dashboard"           },
   { label: "Employee Self-Service", desc: "Personal view — leave balance, attendance trend, task completion, timesheet, and grievances.",                     img: "/case-studies/erp/User_Dashboard__personal_.jpg",caption: "Employee Personal Dashboard"  },
@@ -302,9 +306,10 @@ const erpModules = [
 export default function CaseStudy() {
   const navigate = useNavigate();
   const { slug } = useParams();
-  const isHsn = slug === "hsn-workflow";
-  const sections = isHsn ? hsnSections : erpSections;
-  const accent = isHsn ? "#f59e0b" : "#22c55e";
+  const isHsn   = slug === "hsn-workflow";
+  const isHabit = slug === "lazy-habit-tracker";
+  const sections = isHsn ? hsnSections : (isHabit ? habitSections : erpSections);
+  const accent   = isHsn ? "#f59e0b" : (isHabit ? "#6d28d9" : "#22c55e");
 
   const [activeSection, setActiveSection] = useState(sections[0].id);
   const obsRef = useRef(null);
@@ -408,7 +413,9 @@ export default function CaseStudy() {
           style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center", marginBottom: 24 }}>
           {(isHsn
             ? ["HSN Classification", "Web App", "Fintech", "Delivered"]
-            : ["Enterprise ERP", "Sugar Manufacturing", "6–12 Months", "In Development"]
+            : (isHabit
+                ? ["Behavioral Design", "Mobile App", "Personal Project", "Delivered"]
+                : ["Enterprise ERP", "Sugar Manufacturing", "6–12 Months", "In Development"])
           ).map(t => (
             <span key={t} style={{
               fontSize: 11, fontFamily: "DM Mono, monospace",
@@ -426,7 +433,7 @@ export default function CaseStudy() {
             letterSpacing: "-0.035em", color: "rgba(255,255,255,0.92)",
             lineHeight: 1.05, marginBottom: 16, fontFamily: "DM Sans, sans-serif",
           }}>
-          {isHsn ? "HSN Classification System" : "Indiana Sucro-Tech ERP"}
+          {isHsn ? "HSN Classification System" : (isHabit ? "Lazy Habit Tracker" : "Indiana Sucro-Tech ERP")}
         </motion.h1>
 
         {/* Subtitle */}
@@ -437,7 +444,9 @@ export default function CaseStudy() {
           }}>
           {isHsn
             ? "Google, Stadia — January 2023"
-            : "Indiana Sucro-Tech — 2024"}
+            : (isHabit
+                ? "Personal Project — 2024"
+                : "Indiana Sucro-Tech — 2024")}
         </motion.p>
       </div>
 
@@ -478,7 +487,7 @@ export default function CaseStudy() {
           </div>
           {/* Screenshot */}
           <img
-            src={isHsn ? "/case-studies/hsn/HSN_home.jpg" : "/case-studies/erp/Site_Dashboard.jpg"}
+            src={isHsn ? "/case-studies/hsn/hsn-home.jpg" : (isHabit ? "/case-studies/Habbit tracker/Temp mokup habit.jpg" : "/case-studies/erp/Site_Dashboard.jpg")}
             alt="Hero"
             style={{ width: "100%", height: "auto", display: "block" }}
           />
@@ -503,7 +512,9 @@ export default function CaseStudy() {
             style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 10, marginBottom: 80 }}>
             {(isHsn
               ? [["Role","Solo UI/UX Designer"],["Duration","6–12 Months"],["Tool","Figma + Prototyping"],["Status","Delivered"]]
-              : [["Role","Solo UI/UX Designer"],["Duration","6–12 Months"],["Tool","Figma + Prototyping"],["Status","In Development"]]
+              : (isHabit
+                  ? [["Role","Solo Designer"],["Duration","2024–Present"],["Tool","Figma / Framer"],["Status","In Development"]]
+                  : [["Role","Solo UI/UX Designer"],["Duration","6–12 Months"],["Tool","Figma + Prototyping"],["Status","In Development"]])
             ).map(([k, v]) => (
               <div key={k} style={{
                 padding: "16px 18px", borderRadius: 10,
@@ -575,7 +586,7 @@ export default function CaseStudy() {
                 <DiagramBox caption="End-to-end user classification flow">
                   <HsnUserWorkflow />
                 </DiagramBox>
-                <CaseImage src="/case-studies/hsn/HSN_workflow.jpg" caption="HSN Classification Finder — 5-step guided workflow" label="0.1 Classification workflow" />
+                <CaseImage src="/case-studies/hsn/hsn-workflow.jpg" caption="HSN Classification Finder — 5-step guided workflow" label="0.1 Classification workflow" />
               </motion.section>
 
               <motion.section id="admin-workflow" style={sec} variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}>
@@ -583,16 +594,16 @@ export default function CaseStudy() {
                 <AccentBar />
                 <h2 style={h2}>The backend that powers it all.</h2>
                 <p style={body}>The admin panel is structured to mirror the HSN hierarchy — Sections → Chapters → Headings → Subheadings — so data entry follows the same logical tree that users navigate on the public side.</p>
-                <CaseImage src="/case-studies/hsn/HSN_admin.jpg" caption="HSN Module — Admin backend with data table, import/export, and stat overview" label="0.2 Admin module" />
+                <CaseImage src="/case-studies/hsn/hsn-admin.png" caption="HSN Module — Admin backend with data table, import/export, and stat overview" label="0.2 Admin module" />
               </motion.section>
 
               <motion.section id="screens" style={sec} variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}>
                 <p style={eyebrow}>07 — Key Screens</p>
                 <AccentBar />
                 <h2 style={h2}>Three surfaces. Two user types. One system.</h2>
-                <CaseImage src="/case-studies/hsn/HSN_home.jpg" caption="Homepage — Search bar, How It Works, Benefits section, Contact form" label="0.1 Homepage" />
-                <CaseImage src="/case-studies/hsn/HSN_workflow.jpg" caption="Classification workflow — guided flow with definitions and duty output" label="0.2 Workflow" />
-                <CaseImage src="/case-studies/hsn/HSN_admin.jpg" caption="Admin HSN Module — section, heading, duty %, coverage, exclusions" label="0.3 Admin" />
+                <CaseImage src="/case-studies/hsn/hsn-home.jpg" caption="Homepage — Search bar, How It Works, Benefits section, Contact form" label="0.1 Homepage" />
+                <CaseImage src="/case-studies/hsn/hsn-workflow.jpg" caption="Classification workflow — guided flow with definitions and duty output" label="0.2 Workflow" />
+                <CaseImage src="/case-studies/hsn/hsn-admin.png" caption="Admin HSN Module — section, heading, duty %, coverage, exclusions" label="0.3 Admin" />
               </motion.section>
 
               <motion.section id="decisions" style={sec} variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}>
@@ -625,6 +636,17 @@ export default function CaseStudy() {
                   ))}
                 </div>
                 <p style={body}>Delivered as fully annotated Figma files covering both admin and public tool — with component documentation, interactive prototypes, and developer handoff notes.</p>
+              </motion.section>
+            </>
+          ) : isHabit ? (
+            /* ━━━━━━━━━━━━━━━━━━━━━ HABIT TRACKER CONTENT (SIMPLIFIED) ━━━━━━━━━━━━━━━━━━━━━ */
+            <>
+              <motion.section id="preview" style={sec} variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}>
+                <p style={eyebrow}>01 — Preview</p>
+                <AccentBar />
+                <h2 style={h2}>Research and design are done. Project is currently in development.</h2>
+                <p style={body}>The "Lazy" approach focuses on the <span style={S}>Minimum Viable Habit (MVH)</span> — making habits so small they are "too easy to fail." I have completed the final <span style={S}>research and high-fidelity design phases</span>, and the project is currently in <span style={S}>active development</span>.</p>
+                <p style={body}>The full case study and documentation will be uploaded as soon as the development phase is complete. Stay tuned for the release.</p>
               </motion.section>
             </>
           ) : (

@@ -401,16 +401,6 @@ export default function Home() {
 
   const projects = [
     {
-      title:      "Lazy Habit Tracker",
-      company:    "Personal, '24",
-      desc:       "Reducing friction in daily habit formation through behavioral design.",
-      slug:       "lazy-habit-tracker",
-      glowTop:    "rgba(109, 40, 217, 0.55)",
-      glowBorder: "rgba(139, 92, 246, 0.50)",
-      glowBlob:   "rgba(109, 40, 217, 0.35)",
-      mockupSrc:  "/mockups/lazy-habit-tracker.png",
-    },
-    {
       title:      "Enterprise ERP Model",
       company:    "Client, '24",
       desc:       "End-to-end ERP system for a sugar manufacturing company.",
@@ -429,6 +419,16 @@ export default function Home() {
       glowBorder: "rgba(96, 165, 250, 0.40)",
       glowBlob:   "rgba(37, 99, 235, 0.35)",
       mockupSrc:  "/mockups/hsn-workflow.png",
+    },
+    {
+      title:      "Lazy Habit Tracker",
+      company:    "Personal, '24",
+      desc:       "Reducing friction in daily habit formation through behavioral design.",
+      slug:       "lazy-habit-tracker",
+      glowTop:    "rgba(109, 40, 217, 0.55)",
+      glowBorder: "rgba(139, 92, 246, 0.50)",
+      glowBlob:   "rgba(109, 40, 217, 0.35)",
+      mockupSrc:  "/case-studies/Habbit tracker/Temp mokup habit.jpg",
     },
   ];
 
