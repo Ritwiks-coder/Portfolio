@@ -154,6 +154,22 @@ export default function Navbar() {
       {/* ── RIGHT ZONE ──────────────────────────────────────────────────────── */}
       <div className="flex items-center gap-7">
         <a
+          href="https://www.behance.net/ritikgaikwad12"
+          target="_blank"
+          rel="noreferrer"
+          style={{
+            fontFamily: 'var(--font-sans)',
+            fontSize: '13px',
+            color: 'rgba(255,255,255,0.45)',
+            textDecoration: 'none',
+            transition: 'color 0.2s'
+          }}
+          onMouseEnter={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.85)' }}
+          onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.45)' }}
+        >
+          Behance ↗
+        </a>
+        <a
           href="https://www.linkedin.com/in/ritik-gaikwad-17abb6267"
           target="_blank"
           rel="noreferrer"
