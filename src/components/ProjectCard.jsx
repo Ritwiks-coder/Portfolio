@@ -1,23 +1,15 @@
 import { useState } from "react";
-import { motion, useAnimation } from "framer-motion";
+import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
 export default function ProjectCard({
   title, company, desc, slug, index,
   glowTop, glowBorder, glowBlob, mockupSrc,
 }) {
-  const navigate  = useNavigate();
+  const navigate = useNavigate();
   const [hovered, setHovered] = useState(false);
-  const sweepAnim = useAnimation();
-
-  async function handleMouseEnter() {
+  function handleMouseEnter() {
     setHovered(true);
-    await sweepAnim.set({ left: "-60%", opacity: 0 });
-    sweepAnim.start({
-      left: "120%",
-      opacity: [0, 0.9, 0.9, 0],
-      transition: { duration: 0.75, ease: [0.4, 0, 0.2, 1] },
-    });
   }
 
   return (
@@ -33,28 +25,33 @@ export default function ProjectCard({
         borderRadius: 14,
         overflow: "hidden",
         cursor: "pointer",
-        background: hovered
-          ? `radial-gradient(ellipse 90% 50% at 50% 0%, ${glowTop} 0%, #161412 58%)`
-          : "#161412",
+        background: "#161412",
         border: `1px solid ${hovered ? glowBorder : "rgba(255,255,255,0.07)"}`,
-        boxShadow: hovered
-          ? `0 0 60px 0 ${glowBlob}, 0 20px 60px rgba(0,0,0,0.55)`
-          : "none",
-        transition:
-          "background 0.5s cubic-bezier(0.16,1,0.3,1), border-color 0.4s, box-shadow 0.5s, transform 0.35s cubic-bezier(0.16,1,0.3,1)",
-        transform: hovered ? "translateY(-4px)" : "translateY(0)",
+        willChange: "transform",
+        transition: "border-color 0.4s, transform 0.35s cubic-bezier(0.16,1,0.3,1)",
+        transform: hovered ? "translateY(-4px) translateZ(0)" : "translateY(0) translateZ(0)",
       }}
     >
-      {/* Sweep shimmer */}
-      <motion.div
-        animate={sweepAnim}
-        style={{
-          position: "absolute", top: 0, bottom: 0, left: "-60%", width: "55%",
-          background:
-            "linear-gradient(to right, transparent, rgba(255,255,255,0.03) 30%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.03) 70%, transparent)",
-          transform: "skewX(-12deg)", pointerEvents: "none", zIndex: 20, opacity: 0,
-        }}
-      />
+      {/* Radial glow blob — Fix 3 */}
+      <div style={{
+        position: "absolute",
+        inset: -1,
+        borderRadius: 16,
+        background: `radial-gradient(ellipse 90% 55% at 50% 0%, ${glowTop} 0%, transparent 60%)`,
+        opacity: hovered ? 1 : 0,
+        transition: "opacity 0.4s ease",
+        pointerEvents: "none",
+        zIndex: 0,
+      }} />
+
+      {/* Sweep shimmer — CSS keyframes Fix 7 */}
+      <div style={{
+        position: "absolute", top: 0, bottom: 0, left: "-60%", width: "55%",
+        background: "linear-gradient(to right, transparent, rgba(255,255,255,0.12) 50%, transparent)",
+        transform: "skewX(-12deg)",
+        pointerEvents: "none", zIndex: 20,
+        animation: hovered ? "sweep 0.75s ease forwards" : "none",
+      }} />
 
       {/* Top accent line */}
       <div style={{
@@ -62,110 +59,106 @@ export default function ProjectCard({
         background: `linear-gradient(to right, transparent, ${glowBorder}, transparent)`,
         opacity: hovered ? 1 : 0, transition: "opacity 0.4s", zIndex: 5,
       }} />
-
       {/* ── Text row ─────────────────────────────────────────────────── */}
       <div style={{
-        padding: "20px 22px 16px",
+        padding: "32px 40px 24px",
         display: "flex", alignItems: "flex-start", justifyContent: "space-between",
       }}>
         <div>
           <div style={{
-            fontSize: 19, fontWeight: 600,
-            color: hovered ? "#f5f5f3" : "rgba(245,245,243,0.85)",
-            letterSpacing: "-0.02em", marginBottom: 5,
+            fontSize: 22, fontWeight: 600,
+            color: hovered ? "#f5f5f3" : "rgba(245,245,243,0.92)",
+            letterSpacing: "-0.025em", marginBottom: 6,
             transition: "color 0.3s", fontFamily: "DM Sans, sans-serif",
           }}>
             {title}
           </div>
           <div style={{
-            fontSize: 13, color: "rgba(255,255,255,0.38)",
-            fontFamily: "DM Sans, sans-serif", lineHeight: 1.4,
+            fontSize: 14, color: "rgba(255,255,255,0.42)",
+            fontFamily: "DM Sans, sans-serif", lineHeight: 1.5,
+            fontWeight: 300,
           }}>
-            <span style={{ color: "rgba(255,255,255,0.52)", fontWeight: 500 }}>{company}</span>
+            <span style={{ color: "rgba(255,255,255,0.60)", fontWeight: 500 }}>{company}</span>
             {" — "}{desc}
           </div>
         </div>
         <div style={{
           fontSize: 20,
-          color: hovered ? "rgba(255,255,255,0.82)" : "rgba(255,255,255,0.20)",
+          color: hovered ? "rgba(255,255,255,0.85)" : "rgba(255,255,255,0.25)",
           transition: "color 0.3s, transform 0.35s cubic-bezier(0.16,1,0.3,1)",
           transform: hovered ? "translate(4px,-4px)" : "translate(0,0)",
-          flexShrink: 0, marginLeft: 18, marginTop: 2,
+          flexShrink: 0, marginLeft: 18, marginTop: 4,
         }}>
           →
         </div>
       </div>
 
-      {/* ── MacBook frame ────────────────────────────────────────────── */}
-      <div style={{ padding: "0 14px 16px" }}>
+      {/* ── Floating Browser Window (Inset) ────────────────────────── */}
+      <div style={{ padding: "0 40px 48px" }}>
         <div style={{
-          borderRadius: 10, overflow: "hidden",
-          background: "#1c1c1e",
-          border: `1px solid ${hovered ? "rgba(255,255,255,0.10)" : "rgba(255,255,255,0.05)"}`,
+          borderRadius: 12, overflow: "hidden",
+          background: "#000",
+          border: `1px solid ${hovered ? "rgba(255,255,255,0.12)" : "rgba(255,255,255,0.06)"}`,
           boxShadow: hovered
-            ? `0 20px 70px rgba(0,0,0,0.85), 0 0 0 1px ${glowBorder}50`
-            : "0 6px 30px rgba(0,0,0,0.55)",
-          transition: "box-shadow 0.45s, border-color 0.35s",
+            ? `0 30px 90px rgba(0,0,0,0.9), 0 0 0 1px ${glowBorder}40`
+            : "0 10px 40px rgba(0,0,0,0.6)",
+          transition: "all 0.5s cubic-bezier(0.16,1,0.3,1)",
+          transform: hovered ? "scale(1.015)" : "scale(1)",
         }}>
 
-          {/* Chrome bar */}
+          {/* Browser Chrome: Tab Bar */}
           <div style={{
-            height: 38, background: "#2c2c2e",
-            borderBottom: "1px solid rgba(0,0,0,0.6)",
+            height: 32, background: "#1a1a1a",
+            borderBottom: "1px solid rgba(255,255,255,0.03)",
             display: "flex", alignItems: "center",
-            padding: "0 13px", position: "relative", flexShrink: 0,
+            padding: "0 12px", gap: 12, position: "relative",
           }}>
             {/* Traffic lights */}
-            <div style={{ display: "flex", gap: 6, alignItems: "center", zIndex: 1 }}>
-              {[
-                { bg: "#ff5f57", glow: "rgba(255,95,87,0.85)"  },
-                { bg: "#ffbd2e", glow: "rgba(255,189,46,0.85)" },
-                { bg: "#28c840", glow: "rgba(40,200,64,0.85)"  },
-              ].map((d, i) => (
-                <div key={i} style={{
-                  width: 11, height: 11, borderRadius: "50%",
-                  background: d.bg,
-                  boxShadow: hovered ? `0 0 7px ${d.glow}` : "none",
-                  transition: "box-shadow 0.3s", flexShrink: 0,
-                }} />
+            <div style={{ display: "flex", gap: 6 }}>
+              {["#ff5f57", "#ffbd2e", "#28c840"].map((bg) => (
+                <div key={bg} style={{ width: 9, height: 9, borderRadius: "50%", background: bg }} />
               ))}
             </div>
-
-            {/* Address bar */}
+            {/* Current Tab */}
             <div style={{
-              position: "absolute", left: "50%", transform: "translateX(-50%)",
-              width: 190, height: 22,
-              background: "rgba(255,255,255,0.05)",
-              borderRadius: 5, border: "1px solid rgba(255,255,255,0.06)",
-              display: "flex", alignItems: "center", justifyContent: "center",
+              height: 24, background: "#2d2d2d",
+              borderRadius: "6px 6px 0 0", padding: "0 12px",
+              display: "flex", alignItems: "center", gap: 8,
+              border: "1px solid rgba(255,255,255,0.05)",
+              borderBottom: "none", marginTop: 8,
             }}>
-              <span style={{
-                fontFamily: "DM Mono, monospace", fontSize: 10,
-                color: "rgba(255,255,255,0.20)", letterSpacing: "0.03em",
-              }}>
-                {slug}.fig
-              </span>
+              <span style={{ fontSize: 10, color: "rgba(255,255,255,0.5)", fontFamily: "DM Mono, monospace" }}>{slug}.fig</span>
+              <span style={{ fontSize: 10, color: "rgba(255,255,255,0.2)" }}>×</span>
             </div>
-
-            {/* Right decorative icons */}
-            <div style={{ marginLeft: "auto", display: "flex", gap: 8, opacity: 0.15, zIndex: 1 }}>
-              {[0, 1].map(i => (
-                <div key={i} style={{ width: 13, height: 13, borderRadius: 3, background: "rgba(255,255,255,0.5)" }} />
-              ))}
-            </div>
+            <div style={{ fontSize: 14, color: "rgba(255,255,255,0.15)", marginLeft: -4 }}>+</div>
           </div>
 
-          {/* ── Screenshot — fixed height, object-fit cover ─────────── */}
-          {/*
-            Height is fixed at 340px — matches the Perry Wang reference proportions.
-            The image is cropped (object-fit: cover, object-position: top) so
-            every card is the same height regardless of image dimensions.
-          */}
+          {/* Browser Chrome: Address Bar Row */}
+          <div style={{
+            height: 34, background: "#2d2d2d",
+            display: "flex", alignItems: "center",
+            padding: "0 12px", gap: 15,
+          }}>
+            <div style={{ display: "flex", gap: 12, color: "rgba(255,255,255,0.25)", fontSize: 12 }}>
+              <span>←</span><span>→</span><span>↻</span>
+            </div>
+            <div style={{
+              flex: 1, height: 22, background: "rgba(0,0,0,0.25)",
+              borderRadius: 6, border: "1px solid rgba(255,255,255,0.04)",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              fontFamily: "DM Mono, monospace", fontSize: 10, color: "rgba(255,255,255,0.2)",
+            }}>
+              https://{slug}.design
+            </div>
+            <div style={{ width: 14, height: 14, borderRadius: "50%", background: "rgba(255,255,255,0.05)" }} />
+          </div>
+
+          {/* ── Mockup Content ─────────── */}
           <div style={{
             position: "relative",
             width: "100%",
-            height: 340,           // ← FIXED HEIGHT — same on every card
-            background: "#0f0f0d",
+            height: 380,
+            background: "#0a0a0a",
             overflow: "hidden",
           }}>
             {mockupSrc ? (
@@ -175,45 +168,25 @@ export default function ProjectCard({
                 style={{
                   width: "100%",
                   height: "100%",
-                  objectFit: "cover",       // ← crops to fill
-                  objectPosition: "top",    // ← shows top of mockup first
+                  objectFit: "cover",
+                  objectPosition: "top",
                   display: "block",
-                  filter: hovered ? "brightness(1.06)" : "brightness(0.82)",
-                  transition: "filter 0.45s",
+                  opacity: hovered ? 1 : 0.88,
+                  transition: "opacity 0.4s",
                 }}
               />
             ) : (
-              <div style={{
-                width: "100%", height: "100%",
-                background: hovered
-                  ? `linear-gradient(135deg, ${glowTop}, #0f0f0d)`
-                  : "linear-gradient(135deg, #1a1a1e, #0f0f0d)",
-                display: "flex", flexDirection: "column",
-                alignItems: "center", justifyContent: "center", gap: 10,
-                transition: "background 0.5s",
-              }}>
-                <div style={{
-                  fontFamily: "DM Mono, monospace", fontSize: 11,
-                  color: "rgba(255,255,255,0.16)", letterSpacing: "0.12em",
-                  textTransform: "uppercase",
-                }}>
-                  Drop mockup image here
-                </div>
-                <div style={{
-                  fontFamily: "DM Mono, monospace", fontSize: 10,
-                  color: "rgba(255,255,255,0.08)",
-                }}>
-                  public/mockups/{slug}.png
-                </div>
+              <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <span style={{ fontFamily: "DM Mono, monospace", fontSize: 10, color: "rgba(255,255,255,0.1)" }}>MOCKUP_MISSING</span>
               </div>
             )}
 
-            {/* Colour wash on hover */}
+            {/* Subtle Gradient Overlay */}
             <div style={{
               position: "absolute", inset: 0,
-              background: `linear-gradient(to bottom, ${glowTop} 0%, transparent 50%)`,
-              opacity: hovered ? 0.25 : 0,
-              transition: "opacity 0.5s", pointerEvents: "none",
+              background: `linear-gradient(to bottom, ${glowBlob} 0%, transparent 60%)`,
+              opacity: hovered ? 0.2 : 0,
+              transition: "opacity 0.6s", pointerEvents: "none",
             }} />
           </div>
         </div>

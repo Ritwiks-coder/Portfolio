@@ -24,7 +24,13 @@ export default function Navbar() {
   }
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 bg-transparent h-[72px] flex items-center justify-between px-8">
+    <div 
+      className="fixed top-0 left-0 right-0 z-50 h-[72px] flex items-center justify-between px-8"
+      style={{
+        background: "rgba(13,13,11,0.92)",
+        transform: "translateZ(0)",
+      }}
+    >
       {/* ── LEFT ZONE ───────────────────────────────────────────────────────── */}
       <div className="flex items-center gap-3">
         {/* Logo icon */}

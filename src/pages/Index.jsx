@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { motion, useAnimation, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useLocation } from "react-router-dom";
 import ProjectCard from '../components/ProjectCard';
 
@@ -7,24 +7,24 @@ function InfoContent() {
 
   const experience = [
     {
-      year:    "2025 – 2026",
-      role:    "UI/UX Designer",
+      year: "2025 – 2026",
+      role: "UI/UX Designer",
       company: "LNETEC",
-      type:    "Full-time · Startup",
-      active:  false,
-      desc:    "Designed end-to-end product experiences for an early-stage startup — including the HSN Classification System and Enterprise ERP.",
+      type: "Full-time · Startup",
+      active: false,
+      desc: "Designed end-to-end product experiences for an early-stage startup — including the HSN Classification System and Enterprise ERP.",
     },
   ];
 
   const education = [
     {
-      year:   "2024 – Present",
+      year: "2024 – Present",
       degree: "M.Voc Software Development",
       school: "PDEA University",
       active: true,
     },
     {
-      year:   "2021 – 2024",
+      year: "2021 – 2024",
       degree: "B.Voc Software Development",
       school: "PDEA University",
       active: false,
@@ -33,16 +33,16 @@ function InfoContent() {
 
   const certifications = [
     {
-      name:   "UI/UX Design",
+      name: "UI/UX Design",
       issuer: "Felix Institute",
-      icon:   "◈",
-      url:    "https://www.credential.net/fcacaeee-68ec-44b7-b943-215aca6a4406#acc.eA23jgaJ",
+      icon: "◈",
+      url: "https://www.credential.net/fcacaeee-68ec-44b7-b943-215aca6a4406#acc.eA23jgaJ",
     },
     {
-      name:   "Google UX Design Certificate",
+      name: "Google UX Design Certificate",
       issuer: "Google · Coursera",
-      icon:   "◉",
-      url:    "https://coursera.org/share/b6cce69bff7e265e61bbe3f5b009f031",
+      icon: "◉",
+      url: "https://coursera.org/share/b6cce69bff7e265e61bbe3f5b009f031",
     },
   ];
 
@@ -362,9 +362,9 @@ function InfoContent() {
       {/* ── Stats row ───────────────────────────────────────── */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 10 }}>
         {[
-          ["2",   "Projects shipped" ],
-          ["1yr", "Experience"       ],
-          ["2",   "Certifications"   ],
+          ["2", "Projects shipped"],
+          ["1yr", "Experience"],
+          ["2", "Certifications"],
         ].map(([num, label]) => (
           <div key={label} style={{
             padding: "18px 16px", borderRadius: 12,
@@ -396,52 +396,44 @@ function InfoContent() {
 }
 
 export default function Home() {
+  const [heroHovered, setHeroHovered] = useState(false);
   const location = useLocation();
   const activeTab = location.pathname === "/info" ? "info" : "work";
 
   const projects = [
     {
-      title:      "Enterprise ERP Model",
-      company:    "Client, '24",
-      desc:       "End-to-end ERP system for a sugar manufacturing company.",
-      slug:       "enterprise-erp",
-      glowTop:    "rgba(6, 95, 70, 0.60)",
+      title: "Enterprise ERP Model",
+      company: "Client, '24",
+      desc: "End-to-end ERP system for a sugar manufacturing company.",
+      slug: "enterprise-erp",
+      glowTop: "rgba(6, 95, 70, 0.60)",
       glowBorder: "rgba(52, 211, 153, 0.45)",
-      glowBlob:   "rgba(16, 185, 129, 0.25)",
-      mockupSrc:  "/mockups/enterprise-erp.png",
+      glowBlob: "rgba(16, 185, 129, 0.25)",
+      mockupSrc: "/mockups/enterprise-erp.png",
     },
     {
-      title:      "HSN Workflow System",
-      company:    "PCS, '23",
-      desc:       "Guided 5-step HSN classification tool for importers and exporters.",
-      slug:       "hsn-workflow",
-      glowTop:    "rgba(23, 37, 84, 0.70)",
-      glowBorder: "rgba(96, 165, 250, 0.40)",
-      glowBlob:   "rgba(37, 99, 235, 0.35)",
-      mockupSrc:  "/mockups/hsn-workflow.png",
+      title: "HSN Workflow System",
+      company: "PCS, '23",
+      desc: "Guided 5-step HSN classification tool for importers and exporters.",
+      slug: "hsn-workflow",
+      glowTop: "rgba(223, 136, 13, 0.7)",
+      glowBorder: "rgba(235, 153, 10, 0.4)",
+      glowBlob: "rgba(236, 181, 19, 0.35)",
+      mockupSrc: "/mockups/hsn-workflow.png",
     },
     {
-      title:      "Lazy Habit Tracker",
-      company:    "Personal, '24",
-      desc:       "Reducing friction in daily habit formation through behavioral design.",
-      slug:       "lazy-habit-tracker",
-      glowTop:    "rgba(109, 40, 217, 0.55)",
-      glowBorder: "rgba(139, 92, 246, 0.50)",
-      glowBlob:   "rgba(109, 40, 217, 0.35)",
-      mockupSrc:  "/case-studies/Habbit tracker/Temp mokup habit.jpg",
+      title: "Lazy Habit Tracker",
+      company: "Personal, '24",
+      desc: "Reducing friction in daily habit formation through behavioral design.",
+      slug: "lazy-habit-tracker",
+      glowTop: "rgba(16, 185, 129, 0.55)",   // emerald-green
+      glowBorder: "rgba(52, 211, 153, 0.45)",
+      glowBlob: "rgba(16, 185, 129, 0.30)",
+      mockupSrc: "/mockups/lazy-habit-tracker.png",
     },
   ];
 
-  const heroSweep = useAnimation();
 
-  async function handleHeroEnter() {
-    await heroSweep.set({ left: "-60%", opacity: 0 });
-    heroSweep.start({
-      left: "120%",
-      opacity: [0, 1, 1, 0],
-      transition: { duration: 0.9, ease: [0.4, 0, 0.2, 1] },
-    });
-  }
 
   return (
     <div style={{ backgroundColor: '#0f0f0d', minHeight: '100vh', width: '100%' }}>
@@ -453,7 +445,7 @@ export default function Home() {
         paddingRight: '24px',
         paddingBottom: '80px',
       }}>
-        
+
         <AnimatePresence mode="wait">
           {activeTab === "work" ? (
             <motion.div
@@ -465,35 +457,33 @@ export default function Home() {
             >
               {/* HERO: MAC OS BROWSER WINDOW */}
               <motion.div
-                 initial={{ opacity: 0, y: 28, scale: 0.985 }}
-                 animate={{ opacity: 1, y: 0, scale: 1 }}
-                 transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.05 }}
-                 onMouseEnter={handleHeroEnter}
-                 style={{
-                   position: "relative",
-                   marginBottom: '16px',
-                   borderRadius: '14px',
-                   overflow: 'hidden',
-                   border: '1px solid rgba(255,255,255,0.07)',
-                   boxShadow: '0 40px 100px rgba(0,0,0,0.6), 0 0 0 1px rgba(0,0,0,0.3)',
-                 }}
+                initial={{ opacity: 0, y: 28, scale: 0.985 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.05 }}
+                onMouseEnter={() => setHeroHovered(true)}
+                onMouseLeave={() => setHeroHovered(false)}
+                style={{
+                  position: "relative",
+                  marginBottom: '16px',
+                  borderRadius: '14px',
+                  overflow: 'hidden',
+                  border: '1px solid rgba(255,255,255,0.07)',
+                  boxShadow: '0 40px 100px rgba(0,0,0,0.6), 0 0 0 1px rgba(0,0,0,0.3)',
+                }}
               >
                 {/* Sweep line */}
-                <motion.div
-                  animate={heroSweep}
-                  style={{
-                    position: "absolute",
-                    top: 0, bottom: 0,
-                    left: "-60%",
-                    width: "50%",
-                    background:
-                      "linear-gradient(to right, transparent, rgba(255,255,255,0.05) 35%, rgba(255,255,255,0.13) 50%, rgba(255,255,255,0.05) 65%, transparent)",
-                    transform: "skewX(-12deg)",
-                    pointerEvents: "none",
-                    zIndex: 10,
-                    opacity: 0,
-                  }}
-                />
+                <div style={{
+                  position: "absolute",
+                  top: 0, bottom: 0,
+                  left: "-60%",
+                  width: "50%",
+                  background:
+                    "linear-gradient(to right, transparent, rgba(255,255,255,0.05) 35%, rgba(255,255,255,0.13) 50%, rgba(255,255,255,0.05) 65%, transparent)",
+                  transform: "skewX(-12deg)",
+                  pointerEvents: "none",
+                  zIndex: 10,
+                  animation: heroHovered ? "sweep 0.9s ease forwards" : "none",
+                }} />
                 {/* WINDOW TITLEBAR */}
                 <div style={{
                   height: '40px',
@@ -513,9 +503,11 @@ export default function Home() {
                       ]
                     }}
                     transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                    style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:3,
-                             width:32, height:32, padding:5, borderRadius:8,
-                             border:"1.5px solid rgba(255,255,255,0.20)" }}
+                    style={{
+                      display: "grid", gridTemplateColumns: "1fr 1fr", gap: 3,
+                      width: 32, height: 32, padding: 5, borderRadius: 8,
+                      border: "1.5px solid rgba(255,255,255,0.20)"
+                    }}
                   >
                     {[
                       "rgba(255,94,94,0.9)",   // red
@@ -557,7 +549,7 @@ export default function Home() {
                   flexDirection: 'column',
                   height: '100%'
                 }}>
-                  
+
                   {/* HEADING (top-left) */}
                   <h1 style={{
                     alignSelf: 'flex-start',

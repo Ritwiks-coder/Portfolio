@@ -12,3 +12,10 @@ html {
 body {
   background-color: #0f0f0d;
 }
+
+@keyframes sweep {
+  from  { left: -60%; opacity: 0; }
+  20%   { opacity: 1; }
+  80%   { opacity: 1; }
+  to    { left: 120%; opacity: 0; }
+}

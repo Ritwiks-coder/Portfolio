@@ -78,6 +78,8 @@ function CaseImage({
       }}>
         <img
           src={src} alt={caption || ""}
+          loading="lazy"
+          decoding="async"
           style={{ width: "100%", height: "auto", display: "block" }}
         />
       </div>
@@ -153,14 +155,14 @@ function ErpWorkflowDiagram() {
       <text style={TS("#4b5563")} x="233" y="382" textAnchor="end">Planning</text>
       <text style={TS("#4b5563")} x="233" y="622" textAnchor="end">Technical</text>
       <text style={TS("#4b5563")} x="233" y="782" textAnchor="end">Execution</text>
-      {[["#1a1335","#7c3aed","#c4b5fd","Sales & marketing",20],["#1a1335","#7c3aed","#c4b5fd","Customer entry",100]].map(([f,s,t,l,y]) => (<g key={l}><rect x="250" y={y} width="180" height="44" rx="8" fill={f} stroke={s} strokeWidth="0.5" /><text style={TH(t)} x="340" y={y+22} textAnchor="middle" dominantBaseline="central">{l}</text></g>))}
+      {[["#1a1335", "#7c3aed", "#c4b5fd", "Sales & marketing", 20], ["#1a1335", "#7c3aed", "#c4b5fd", "Customer entry", 100]].map(([f, s, t, l, y]) => (<g key={l}><rect x="250" y={y} width="180" height="44" rx="8" fill={f} stroke={s} strokeWidth="0.5" /><text style={TH(t)} x="340" y={y + 22} textAnchor="middle" dominantBaseline="central">{l}</text></g>))}
       <rect x="250" y="180" width="180" height="44" rx="8" fill="#1a1a20" stroke="#52525b" strokeWidth="0.5" /><text style={TH("#a1a1aa")} x="340" y="202" textAnchor="middle" dominantBaseline="central">Deal closed?</text>
-      {[["#0a1f1e","#0d9488","#5eead4","Project creation",284],["#0a1f1e","#0d9488","#5eead4","Pre-bid documents",364],["#0a1f1e","#0d9488","#5eead4","Requisition",444]].map(([f,s,t,l,y]) => (<g key={l}><rect x="250" y={y} width="180" height="44" rx="8" fill={f} stroke={s} strokeWidth="0.5" /><text style={TH(t)} x="340" y={y+22} textAnchor="middle" dominantBaseline="central">{l}</text></g>))}
-      {[["#0c1e31","#2563eb","#93c5fd","Bill of materials",524],["#0c1e31","#2563eb","#93c5fd","Design & drawing",604],["#0c1e31","#2563eb","#93c5fd","Vendor selection",684]].map(([f,s,t,l,y]) => (<g key={l}><rect x="250" y={y} width="180" height="44" rx="8" fill={f} stroke={s} strokeWidth="0.5" /><text style={TH(t)} x="340" y={y+22} textAnchor="middle" dominantBaseline="central">{l}</text></g>))}
+      {[["#0a1f1e", "#0d9488", "#5eead4", "Project creation", 284], ["#0a1f1e", "#0d9488", "#5eead4", "Pre-bid documents", 364], ["#0a1f1e", "#0d9488", "#5eead4", "Requisition", 444]].map(([f, s, t, l, y]) => (<g key={l}><rect x="250" y={y} width="180" height="44" rx="8" fill={f} stroke={s} strokeWidth="0.5" /><text style={TH(t)} x="340" y={y + 22} textAnchor="middle" dominantBaseline="central">{l}</text></g>))}
+      {[["#0c1e31", "#2563eb", "#93c5fd", "Bill of materials", 524], ["#0c1e31", "#2563eb", "#93c5fd", "Design & drawing", 604], ["#0c1e31", "#2563eb", "#93c5fd", "Vendor selection", 684]].map(([f, s, t, l, y]) => (<g key={l}><rect x="250" y={y} width="180" height="44" rx="8" fill={f} stroke={s} strokeWidth="0.5" /><text style={TH(t)} x="340" y={y + 22} textAnchor="middle" dominantBaseline="central">{l}</text></g>))}
       <rect x="250" y="764" width="180" height="44" rx="8" fill="#0a1e0e" stroke="#16a34a" strokeWidth="0.5" /><text style={TH("#86efac")} x="340" y="786" textAnchor="middle" dominantBaseline="central">Site execution</text>
       <rect x="470" y="764" width="155" height="44" rx="8" fill="#0a1e0e" stroke="#16a34a" strokeWidth="0.5" /><text style={TH("#86efac")} x="548" y="786" textAnchor="middle" dominantBaseline="central">Workshop ops</text>
       <rect x="50" y="444" width="155" height="44" rx="8" fill="#1c1204" stroke="#d97706" strokeWidth="0.5" /><text style={TH("#fcd34d")} x="128" y="466" textAnchor="middle" dominantBaseline="central">Master data</text>
-      {([[340,64,340,100],[340,144,340,180],[340,224,340,284],[340,328,340,364],[340,408,340,444],[340,488,340,524],[340,568,340,604],[340,648,340,684],[340,728,340,764]]).map(([x1,y1,x2,y2],i) => (<line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke={A} strokeWidth="1" markerEnd="url(#wa)" />))}
+      {([[340, 64, 340, 100], [340, 144, 340, 180], [340, 224, 340, 284], [340, 328, 340, 364], [340, 408, 340, 444], [340, 488, 340, 524], [340, 568, 340, 604], [340, 648, 340, 684], [340, 728, 340, 764]]).map(([x1, y1, x2, y2], i) => (<line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke={A} strokeWidth="1" markerEnd="url(#wa)" />))}
       <line x1="205" y1="466" x2="250" y2="466" stroke="#d97706" strokeWidth="1" markerEnd="url(#wa2)" />
       <line x1="430" y1="786" x2="470" y2="786" stroke="#16a34a" strokeWidth="1" markerEnd="url(#wa3)" />
       <path d="M 250 202 L 175 202 L 175 88 L 340 88 L 340 100" fill="none" stroke="#374151" strokeWidth="1" strokeDasharray="4 3" markerEnd="url(#wa)" />
@@ -200,11 +202,11 @@ function HsnUserWorkflow() {
   const TS = (c) => ({ fontFamily: "DM Mono, monospace", fontSize: 11, fill: c });
   const A = "rgba(255,255,255,0.30)";
   const steps = [
-    { label: "Search product", sub: "Enter name",      fill: "#0c1e31", stroke: "#2563eb", txt: "#93c5fd", x: 40  },
-    { label: "Select section", sub: "21 categories",   fill: "#0a1f1e", stroke: "#0d9488", txt: "#5eead4", x: 155 },
-    { label: "Select chapter", sub: "99 chapters",     fill: "#0a1f1e", stroke: "#0d9488", txt: "#5eead4", x: 270 },
-    { label: "Select heading", sub: "4-digit code",    fill: "#1a1335", stroke: "#7c3aed", txt: "#c4b5fd", x: 385 },
-    { label: "Subheading",     sub: "6-digit code",    fill: "#1a1335", stroke: "#7c3aed", txt: "#c4b5fd", x: 500 },
+    { label: "Search product", sub: "Enter name", fill: "#0c1e31", stroke: "#2563eb", txt: "#93c5fd", x: 40 },
+    { label: "Select section", sub: "21 categories", fill: "#0a1f1e", stroke: "#0d9488", txt: "#5eead4", x: 155 },
+    { label: "Select chapter", sub: "99 chapters", fill: "#0a1f1e", stroke: "#0d9488", txt: "#5eead4", x: 270 },
+    { label: "Select heading", sub: "4-digit code", fill: "#1a1335", stroke: "#7c3aed", txt: "#c4b5fd", x: 385 },
+    { label: "Subheading", sub: "6-digit code", fill: "#1a1335", stroke: "#7c3aed", txt: "#c4b5fd", x: 500 },
   ];
   return (
     <svg width="100%" viewBox="0 0 680 320">
@@ -243,7 +245,7 @@ function HsnArchDiagram() {
       <defs><marker id="aa" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke={A} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></marker></defs>
       <rect x="20" y="20" width="185" height="350" rx="12" fill="#111113" stroke="#27272a" strokeWidth="0.5" />
       <text style={TH("rgba(255,255,255,0.50)")} x="113" y="46" textAnchor="middle">Admin backend</text>
-      {[["#0c1e31","#2563eb","#93c5fd","HSN Module",70],["#0a1f1e","#0d9488","#5eead4","Sections",128],["#0a1f1e","#0d9488","#5eead4","Chapters",176],["#0a1f1e","#0d9488","#5eead4","Headings",224],["#1a1335","#7c3aed","#c4b5fd","Case Law",272],["#1a1335","#7c3aed","#c4b5fd","BIS Principles",320]].map(([f,s,t,l,y]) => (<g key={l}><rect x="36" y={y} width="153" height="36" rx="6" fill={f} stroke={s} strokeWidth="0.5" /><text style={TH(t)} x="113" y={y+18} textAnchor="middle" dominantBaseline="central">{l}</text></g>))}
+      {[["#0c1e31", "#2563eb", "#93c5fd", "HSN Module", 70], ["#0a1f1e", "#0d9488", "#5eead4", "Sections", 128], ["#0a1f1e", "#0d9488", "#5eead4", "Chapters", 176], ["#0a1f1e", "#0d9488", "#5eead4", "Headings", 224], ["#1a1335", "#7c3aed", "#c4b5fd", "Case Law", 272], ["#1a1335", "#7c3aed", "#c4b5fd", "BIS Principles", 320]].map(([f, s, t, l, y]) => (<g key={l}><rect x="36" y={y} width="153" height="36" rx="6" fill={f} stroke={s} strokeWidth="0.5" /><text style={TH(t)} x="113" y={y + 18} textAnchor="middle" dominantBaseline="central">{l}</text></g>))}
       <rect x="250" y="140" width="180" height="120" rx="12" fill="#1c1204" stroke="#d97706" strokeWidth="0.5" />
       <text style={TH("#fcd34d")} x="340" y="175" textAnchor="middle" dominantBaseline="central">Central database</text>
       <text style={TS("#f59e0b")} x="340" y="198" textAnchor="middle" dominantBaseline="central">HSN codes + duties</text>
@@ -252,7 +254,7 @@ function HsnArchDiagram() {
       <line x1="205" y1="200" x2="250" y2="200" stroke={A} strokeWidth="1" markerEnd="url(#aa)" />
       <rect x="475" y="20" width="185" height="350" rx="12" fill="#111113" stroke="#27272a" strokeWidth="0.5" />
       <text style={TH("rgba(255,255,255,0.50)")} x="568" y="46" textAnchor="middle">Public tool</text>
-      {[["#0c1e31","#2563eb","#93c5fd","Search bar",70],["#0a1f1e","#0d9488","#5eead4","Section step",128],["#0a1f1e","#0d9488","#5eead4","Chapter step",176],["#0a1f1e","#0d9488","#5eead4","Heading step",224],["#0a1f1e","#0d9488","#5eead4","Subheading step",272],["#0a1e0e","#16a34a","#86efac","Final HSN + duties",320]].map(([f,s,t,l,y]) => (<g key={l}><rect x="491" y={y} width="153" height="36" rx="6" fill={f} stroke={s} strokeWidth="0.5" /><text style={TH(t)} x="568" y={y+18} textAnchor="middle" dominantBaseline="central">{l}</text></g>))}
+      {[["#0c1e31", "#2563eb", "#93c5fd", "Search bar", 70], ["#0a1f1e", "#0d9488", "#5eead4", "Section step", 128], ["#0a1f1e", "#0d9488", "#5eead4", "Chapter step", 176], ["#0a1f1e", "#0d9488", "#5eead4", "Heading step", 224], ["#0a1f1e", "#0d9488", "#5eead4", "Subheading step", 272], ["#0a1e0e", "#16a34a", "#86efac", "Final HSN + duties", 320]].map(([f, s, t, l, y]) => (<g key={l}><rect x="491" y={y} width="153" height="36" rx="6" fill={f} stroke={s} strokeWidth="0.5" /><text style={TH(t)} x="568" y={y + 18} textAnchor="middle" dominantBaseline="central">{l}</text></g>))}
       <line x1="430" y1="200" x2="475" y2="200" stroke={A} strokeWidth="1" markerEnd="url(#aa)" />
       <text style={TS("rgba(255,255,255,0.18)")} x="113" y="388" textAnchor="middle">Admin enters data</text>
       <text style={TS("rgba(255,255,255,0.18)")} x="340" y="278" textAnchor="middle">Single source</text>
@@ -265,51 +267,51 @@ function HsnArchDiagram() {
 // MAIN COMPONENT
 // ═══════════════════════════════════════════════════════════════════════════════
 const erpSections = [
-  { id: "overview",      label: "Overview"          },
-  { id: "problem",       label: "The Problem"       },
-  { id: "process",       label: "Process"           },
-  { id: "workflow",      label: "User Workflow"     },
-  { id: "architecture",  label: "Info Architecture" },
-  { id: "design-system", label: "Design System"     },
-  { id: "modules",       label: "The Modules"       },
-  { id: "decisions",     label: "Key Decisions"     },
-  { id: "outcomes",      label: "Outcomes"          },
+  { id: "overview", label: "Overview" },
+  { id: "problem", label: "The Problem" },
+  { id: "process", label: "Process" },
+  { id: "workflow", label: "User Workflow" },
+  { id: "architecture", label: "Info Architecture" },
+  { id: "design-system", label: "Design System" },
+  { id: "modules", label: "The Modules" },
+  { id: "decisions", label: "Key Decisions" },
+  { id: "outcomes", label: "Outcomes" },
 ];
 
 const hsnSections = [
-  { id: "overview",       label: "Overview"           },
-  { id: "problem",        label: "The Problem"        },
-  { id: "process",        label: "Process"            },
-  { id: "architecture",   label: "System Architecture"},
-  { id: "user-workflow",  label: "User Workflow"      },
-  { id: "admin-workflow", label: "Admin Workflow"     },
-  { id: "screens",        label: "Key Screens"        },
-  { id: "decisions",      label: "Key Decisions"      },
-  { id: "outcomes",       label: "Outcomes"           },
+  { id: "overview", label: "Overview" },
+  { id: "problem", label: "The Problem" },
+  { id: "process", label: "Process" },
+  { id: "architecture", label: "System Architecture" },
+  { id: "user-workflow", label: "User Workflow" },
+  { id: "admin-workflow", label: "Admin Workflow" },
+  { id: "screens", label: "Key Screens" },
+  { id: "decisions", label: "Key Decisions" },
+  { id: "outcomes", label: "Outcomes" },
 ];
 
 const habitSections = [
-  { id: "preview",       label: "Preview"           },
+  { id: "preview", label: "Preview" },
 ];
 
 const erpModules = [
-  { label: "HR Administration",    desc: "560 employees, attendance tracking, grievance management, department distribution, and upcoming celebrations.",      img: "/case-studies/erp/HR_Dashboard.jpg",             caption: "HR Admin Dashboard"           },
-  { label: "Employee Self-Service", desc: "Personal view — leave balance, attendance trend, task completion, timesheet, and grievances.",                     img: "/case-studies/erp/User_Dashboard__personal_.jpg",caption: "Employee Personal Dashboard"  },
-  { label: "Project Management",   desc: "Active projects, task assignments, inspection count, site visits, task completion trend with time filters.",         img: "/case-studies/erp/User_Dashboard.jpg",            caption: "Project Manager Dashboard"    },
-  { label: "Site Execution",       desc: "On-ground dashboard — inventory distribution, inward/outward reporting, vehicle and material requisitions.",        img: "/case-studies/erp/Site_Dashboard.jpg",            caption: "Site Execution Dashboard"     },
-  { label: "Finance & Purchase",   desc: "Pre-bid pipeline, supplier management, purchase order approvals, inventory levels, and invoice workflows.",         img: "/case-studies/erp/Purchase_Dashboard.jpg",        caption: "Finance & Purchase Dashboard" },
-  { label: "Sales & Marketing",    desc: "Customer visits (320/mo), active deals, ₹4.8M closed revenue, follow-up pipeline, high-probability deals.",       img: "/case-studies/erp/sales_and_marketing.jpg",       caption: "Sales & Marketing Dashboard"  },
-  { label: "Workshop Operations",  desc: "Material inward/outward tracking, inspection management, active vehicles, and inventory donut overview.",           img: "/case-studies/erp/Workshop_Dashboard.jpg",        caption: "Workshop Operations Dashboard"},
-  { label: "Dispatch & Logistics", desc: "Material out requests, packing material alerts, transport requests, and pending dispatch approvals.",               img: "/case-studies/erp/Dispatch_Dashboard.jpg",        caption: "Dispatch & Logistics Dashboard"},
+  { label: "HR Administration", desc: "560 employees, attendance tracking, grievance management, department distribution, and upcoming celebrations.", img: "/case-studies/erp/HR_Dashboard.jpg", caption: "HR Admin Dashboard" },
+  { label: "Employee Self-Service", desc: "Personal view — leave balance, attendance trend, task completion, timesheet, and grievances.", img: "/case-studies/erp/User_Dashboard__personal_.jpg", caption: "Employee Personal Dashboard" },
+  { label: "Project Management", desc: "Active projects, task assignments, inspection count, site visits, task completion trend with time filters.", img: "/case-studies/erp/User_Dashboard.jpg", caption: "Project Manager Dashboard" },
+  { label: "Site Execution", desc: "On-ground dashboard — inventory distribution, inward/outward reporting, vehicle and material requisitions.", img: "/case-studies/erp/Site_Dashboard.jpg", caption: "Site Execution Dashboard" },
+  { label: "Finance & Purchase", desc: "Pre-bid pipeline, supplier management, purchase order approvals, inventory levels, and invoice workflows.", img: "/case-studies/erp/Purchase_Dashboard.jpg", caption: "Finance & Purchase Dashboard" },
+  { label: "Sales & Marketing", desc: "Customer visits (320/mo), active deals, ₹4.8M closed revenue, follow-up pipeline, high-probability deals.", img: "/case-studies/erp/sales_and_marketing.jpg", caption: "Sales & Marketing Dashboard" },
+  { label: "Workshop Operations", desc: "Material inward/outward tracking, inspection management, active vehicles, and inventory donut overview.", img: "/case-studies/erp/Workshop_Dashboard.jpg", caption: "Workshop Operations Dashboard" },
+  { label: "Dispatch & Logistics", desc: "Material out requests, packing material alerts, transport requests, and pending dispatch approvals.", img: "/case-studies/erp/Dispatch_Dashboard.jpg", caption: "Dispatch & Logistics Dashboard" },
 ];
 
 export default function CaseStudy() {
   const navigate = useNavigate();
   const { slug } = useParams();
-  const isHsn   = slug === "hsn-workflow";
+  const isHsn = slug === "hsn-workflow";
   const isHabit = slug === "lazy-habit-tracker";
   const sections = isHsn ? hsnSections : (isHabit ? habitSections : erpSections);
-  const accent   = isHsn ? "#f59e0b" : (isHabit ? "#6d28d9" : "#22c55e");
+  const accent = isHsn ? "#f59e0b" : (isHabit ? "#6d28d9" : "#22c55e");
 
   const [activeSection, setActiveSection] = useState(sections[0].id);
   const obsRef = useRef(null);
@@ -411,11 +413,11 @@ export default function CaseStudy() {
         {/* Tags */}
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}
           style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center", marginBottom: 24 }}>
-          {(isHsn
-            ? ["HSN Classification", "Web App", "Fintech", "Delivered"]
-            : (isHabit
-                ? ["Behavioral Design", "Mobile App", "Personal Project", "Delivered"]
-                : ["Enterprise ERP", "Sugar Manufacturing", "6–12 Months", "In Development"])
+          {(slug === "lazy-habit-tracker"
+            ? ["Mobile App", "React Native", "UI/UX", "Personal"]
+            : isHsn
+              ? ["HSN Classification", "Web App", "Fintech", "Delivered"]
+              : ["Enterprise ERP", "Sugar Manufacturing", "6–12 Months", "In Development"]
           ).map(t => (
             <span key={t} style={{
               fontSize: 11, fontFamily: "DM Mono, monospace",
@@ -433,7 +435,11 @@ export default function CaseStudy() {
             letterSpacing: "-0.035em", color: "rgba(255,255,255,0.92)",
             lineHeight: 1.05, marginBottom: 16, fontFamily: "DM Sans, sans-serif",
           }}>
-          {isHsn ? "HSN Classification System" : (isHabit ? "Lazy Habit Tracker" : "Indiana Sucro-Tech ERP")}
+          {slug === "lazy-habit-tracker"
+            ? "Lazy Habit Tracker"
+            : isHsn
+              ? "HSN Classification System"
+              : "Indiana Sucro-Tech ERP"}
         </motion.h1>
 
         {/* Subtitle */}
@@ -442,11 +448,11 @@ export default function CaseStudy() {
             fontSize: 16, color: "rgba(255,255,255,0.42)", lineHeight: 1.65,
             marginBottom: 0, fontFamily: "DM Sans, sans-serif", fontWeight: 300,
           }}>
-          {isHsn
-            ? "Google, Stadia — January 2023"
-            : (isHabit
-                ? "Personal Project — 2024"
-                : "Indiana Sucro-Tech — 2024")}
+          {slug === "lazy-habit-tracker"
+            ? "Personal Project — 2024"
+            : isHsn
+              ? "PCS — 2023"
+              : "Indiana Sucro-Tech — 2024"}
         </motion.p>
       </div>
 
@@ -487,7 +493,13 @@ export default function CaseStudy() {
           </div>
           {/* Screenshot */}
           <img
-            src={isHsn ? "/case-studies/hsn/hsn-home.jpg" : (isHabit ? "/case-studies/Habbit tracker/Temp mokup habit.jpg" : "/case-studies/erp/Site_Dashboard.jpg")}
+            src={
+              slug === "hsn-workflow"
+                ? "/case-studies/hsn/HSN_home.jpg"
+                : slug === "lazy-habit-tracker"
+                  ? "/mockups/lazy-habit-tracker.png"
+                  : "/case-studies/erp/Site_Dashboard.jpg"
+            }
             alt="Hero"
             style={{ width: "100%", height: "auto", display: "block" }}
           />
@@ -510,11 +522,11 @@ export default function CaseStudy() {
           {/* Meta row */}
           <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}
             style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 10, marginBottom: 80 }}>
-            {(isHsn
-              ? [["Role","Solo UI/UX Designer"],["Duration","6–12 Months"],["Tool","Figma + Prototyping"],["Status","Delivered"]]
-              : (isHabit
-                  ? [["Role","Solo Designer"],["Duration","2024–Present"],["Tool","Figma / Framer"],["Status","In Development"]]
-                  : [["Role","Solo UI/UX Designer"],["Duration","6–12 Months"],["Tool","Figma + Prototyping"],["Status","In Development"]])
+            {(slug === "lazy-habit-tracker"
+              ? [["Role", "Solo Designer"], ["Platform", "iOS / Android"], ["Tool", "Figma"], ["Status", "In Progress"]]
+              : isHsn
+                ? [["Role", "Solo UI/UX Designer"], ["Duration", "6–12 Months"], ["Tool", "Figma + Prototyping"], ["Status", "Delivered"]]
+                : [["Role", "Solo UI/UX Designer"], ["Duration", "6–12 Months"], ["Tool", "Figma + Prototyping"], ["Status", "In Development"]]
             ).map(([k, v]) => (
               <div key={k} style={{
                 padding: "16px 18px", borderRadius: 10,
@@ -529,7 +541,13 @@ export default function CaseStudy() {
           {isHsn ? (
             /* ━━━━━━━━━━━━━━━━━━━━━ HSN CONTENT ━━━━━━━━━━━━━━━━━━━━━ */
             <>
-              <motion.section id="overview" style={sec} variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}>
+              <motion.section
+                id="overview"
+                style={sec}
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              >
                 <p style={eyebrow}>01 — Overview</p>
                 <AccentBar />
                 <h2 style={h2}>A two-sided platform for HSN classification — admin backend and public search tool.</h2>
@@ -543,7 +561,7 @@ export default function CaseStudy() {
                 <h2 style={h2}>Thousands of codes. Zero guidance. Expensive mistakes.</h2>
                 <p style={body}>India's HSN system contains 21 sections, 99 chapters, and thousands of headings. Businesses must declare the correct 8-digit code for every product — an error means wrong GST, penalties, or delayed shipments.</p>
                 <div style={{ display: "flex", flexDirection: "column", gap: 10, margin: "24px 0" }}>
-                  {[["#ef4444","Importers manually searched PDFs with hundreds of pages"],["#ef4444","A wrong HSN code means wrong GST — leading to penalties"],["#f59e0b","No visibility into customs duty, BIS compliance, or case law"],["#f59e0b","Bulk classifiers had no tool — each product needed individual lookup"],["#22c55e","Existing tools were complex, outdated, and had no guided flow"]].map(([c, t]) => (
+                  {[["#ef4444", "Importers manually searched PDFs with hundreds of pages"], ["#ef4444", "A wrong HSN code means wrong GST — leading to penalties"], ["#f59e0b", "No visibility into customs duty, BIS compliance, or case law"], ["#f59e0b", "Bulk classifiers had no tool — each product needed individual lookup"], ["#22c55e", "Existing tools were complex, outdated, and had no guided flow"]].map(([c, t]) => (
                     <div key={t} style={{ display: "flex", alignItems: "center", gap: 14, padding: "14px 18px", borderRadius: 8, background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}>
                       <div style={{ width: 7, height: 7, borderRadius: "50%", background: c, flexShrink: 0 }} />
                       <span style={{ fontSize: 14, color: "rgba(255,255,255,0.62)", fontFamily: "DM Sans, sans-serif" }}>{t}</span>
@@ -558,7 +576,7 @@ export default function CaseStudy() {
                 <AccentBar />
                 <h2 style={h2}>Research → IA → Admin flow → Public flow → Prototype</h2>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: 10, margin: "24px 0 28px" }}>
-                  {[["01","Research","HSN structure & pain points"],["02","IA","Admin & public architecture"],["03","Admin","Data management backend"],["04","Public","Guided classification wizard"],["05","Prototype","Figma + dev handoff"]].map(([n, t, d]) => (
+                  {[["01", "Research", "HSN structure & pain points"], ["02", "IA", "Admin & public architecture"], ["03", "Admin", "Data management backend"], ["04", "Public", "Guided classification wizard"], ["05", "Prototype", "Figma + dev handoff"]].map(([n, t, d]) => (
                     <div key={n} style={{ padding: "16px 14px", borderRadius: 10, background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
                       <div style={{ fontSize: 18, fontWeight: 700, color: "#f59e0b", marginBottom: 6, fontFamily: "DM Sans, sans-serif" }}>{n}</div>
                       <div style={{ fontSize: 12, fontWeight: 500, color: "rgba(255,255,255,0.80)", marginBottom: 4, lineHeight: 1.3, fontFamily: "DM Sans, sans-serif" }}>{t}</div>
@@ -611,7 +629,7 @@ export default function CaseStudy() {
                 <AccentBar />
                 <h2 style={h2}>Turning a legal hierarchy into a human flow.</h2>
                 <div style={{ display: "flex", flexDirection: "column", gap: 20, margin: "24px 0" }}>
-                  {[["01","Step-by-step over search-all","Breaking classification into 5 guided steps mirrors how HSN actually works — dramatically reducing wrong selections compared to a single search bar."],["02","Definition panel at every step","Each step shows a plain-English definition. The most requested feature in research — people needed to understand what they were selecting, not just see code numbers."],["03","Show all duty information at result","Most tools showed only the HSN code. The result page shows GST rate, customs duty, BIS requirements, case law, and notes — everything a business needs in one place."],["04","Bulk upload for power users","Importers dealing with hundreds of SKUs needed a different solution. The bulk upload feature processes entire product lists at once."],["05","Admin mirrors the public hierarchy","The admin sidebar follows the exact same structure users navigate on the public side — making data entry intuitive for the operations team."]].map(([n, t, d]) => (
+                  {[["01", "Step-by-step over search-all", "Breaking classification into 5 guided steps mirrors how HSN actually works — dramatically reducing wrong selections compared to a single search bar."], ["02", "Definition panel at every step", "Each step shows a plain-English definition. The most requested feature in research — people needed to understand what they were selecting, not just see code numbers."], ["03", "Show all duty information at result", "Most tools showed only the HSN code. The result page shows GST rate, customs duty, BIS requirements, case law, and notes — everything a business needs in one place."], ["04", "Bulk upload for power users", "Importers dealing with hundreds of SKUs needed a different solution. The bulk upload feature processes entire product lists at once."], ["05", "Admin mirrors the public hierarchy", "The admin sidebar follows the exact same structure users navigate on the public side — making data entry intuitive for the operations team."]].map(([n, t, d]) => (
                     <div key={n} style={{ display: "flex", gap: 20, padding: "22px 24px", borderRadius: 12, background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
                       <div style={{ fontSize: 20, fontWeight: 700, color: "#f59e0b", flexShrink: 0, fontFamily: "DM Mono, monospace", minWidth: 32 }}>{n}</div>
                       <div>
@@ -628,7 +646,7 @@ export default function CaseStudy() {
                 <AccentBar />
                 <h2 style={h2}>A complex system made simple. Delivered.</h2>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 12, margin: "24px 0 28px" }}>
-                  {[["3","Surfaces"],["5","Step flow"],["8+","Admin modules"],["1","Designer"]].map(([n, l]) => (
+                  {[["3", "Surfaces"], ["5", "Step flow"], ["8+", "Admin modules"], ["1", "Designer"]].map(([n, l]) => (
                     <div key={l} style={{ padding: "24px 20px", borderRadius: 12, textAlign: "center", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
                       <div style={{ fontSize: 36, fontWeight: 700, color: "#f59e0b", letterSpacing: "-0.02em", marginBottom: 6, fontFamily: "DM Sans, sans-serif" }}>{n}</div>
                       <div style={{ fontFamily: "DM Mono, monospace", fontSize: 10, color: "rgba(255,255,255,0.32)", letterSpacing: "0.08em", textTransform: "uppercase" }}>{l}</div>
@@ -641,7 +659,13 @@ export default function CaseStudy() {
           ) : isHabit ? (
             /* ━━━━━━━━━━━━━━━━━━━━━ HABIT TRACKER CONTENT (SIMPLIFIED) ━━━━━━━━━━━━━━━━━━━━━ */
             <>
-              <motion.section id="preview" style={sec} variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}>
+              <motion.section
+                id="preview"
+                style={sec}
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              >
                 <p style={eyebrow}>01 — Preview</p>
                 <AccentBar />
                 <h2 style={h2}>Research and design are done. Project is currently in development.</h2>
@@ -652,7 +676,13 @@ export default function CaseStudy() {
           ) : (
             /* ━━━━━━━━━━━━━━━━━━━━━ ERP CONTENT ━━━━━━━━━━━━━━━━━━━━━ */
             <>
-              <motion.section id="overview" style={sec} variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}>
+              <motion.section
+                id="overview"
+                style={sec}
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              >
                 <p style={eyebrow}>01 — Overview</p>
                 <AccentBar />
                 <h2 style={h2}>A complete ERP designed end to end, solo.</h2>
@@ -666,7 +696,7 @@ export default function CaseStudy() {
                 <h2 style={h2}>Six departments. Zero shared system.</h2>
                 <p style={body}>Before this ERP, operations were held together by spreadsheets, WhatsApp messages, and paper records.</p>
                 <div style={{ display: "flex", flexDirection: "column", gap: 10, margin: "24px 0" }}>
-                  {[["#22c55e","HR tracked 560+ employees in Excel sheets"],["#f59e0b","Site engineers reported progress over WhatsApp"],["#f59e0b","Purchase orders were approved via email chains"],["#ef4444","Workshop maintenance had no digital tracking"],["#ef4444","Sales follow-ups lived in individual notebooks"]].map(([c, t]) => (
+                  {[["#22c55e", "HR tracked 560+ employees in Excel sheets"], ["#f59e0b", "Site engineers reported progress over WhatsApp"], ["#f59e0b", "Purchase orders were approved via email chains"], ["#ef4444", "Workshop maintenance had no digital tracking"], ["#ef4444", "Sales follow-ups lived in individual notebooks"]].map(([c, t]) => (
                     <div key={t} style={{ display: "flex", alignItems: "center", gap: 14, padding: "14px 18px", borderRadius: 8, background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}>
                       <div style={{ width: 7, height: 7, borderRadius: "50%", background: c, flexShrink: 0 }} />
                       <span style={{ fontSize: 14, color: "rgba(255,255,255,0.62)", fontFamily: "DM Sans, sans-serif" }}>{t}</span>
@@ -681,7 +711,7 @@ export default function CaseStudy() {
                 <AccentBar />
                 <h2 style={h2}>Discovery → Architecture → Design → Prototype → Handoff</h2>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: 10, margin: "24px 0 28px" }}>
-                  {[["01","Stakeholder Interviews","Understanding workflows"],["02","Info Architecture","Mapping roles & screens"],["03","Design System","Components before modules"],["04","Module Design","All 10 dashboards"],["05","Dev Handoff","Annotated Figma"]].map(([n, t, d]) => (
+                  {[["01", "Stakeholder Interviews", "Understanding workflows"], ["02", "Info Architecture", "Mapping roles & screens"], ["03", "Design System", "Components before modules"], ["04", "Module Design", "All 10 dashboards"], ["05", "Dev Handoff", "Annotated Figma"]].map(([n, t, d]) => (
                     <div key={n} style={{ padding: "16px 14px", borderRadius: 10, background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
                       <div style={{ fontSize: 18, fontWeight: 700, color: "#22c55e", marginBottom: 6, fontFamily: "DM Sans, sans-serif" }}>{n}</div>
                       <div style={{ fontSize: 12, fontWeight: 500, color: "rgba(255,255,255,0.80)", marginBottom: 4, lineHeight: 1.3, fontFamily: "DM Sans, sans-serif" }}>{t}</div>
@@ -738,7 +768,7 @@ export default function CaseStudy() {
                 <AccentBar />
                 <h2 style={h2}>Designing for users who had never used enterprise software.</h2>
                 <div style={{ display: "flex", flexDirection: "column", gap: 20, margin: "24px 0 32px" }}>
-                  {[["01","Role-based navigation","Factory workers, site engineers, and C-suite managers all use the same platform. The sidebar shows only what each role is permitted to see."],["02","The 4-metric card pattern","Every dashboard opens with the same 4-stat pattern. Any user switching modules knows exactly where to look."],["03","Status colors as a language","Green = approved. Amber = pending. Red = overdue. Applied identically across all 10 modules."],["04","Pending Actions as daily driver","Most users' daily workflow was just clearing pending approvals. Pending Actions became the primary widget on every manager dashboard."]].map(([n, t, d]) => (
+                  {[["01", "Role-based navigation", "Factory workers, site engineers, and C-suite managers all use the same platform. The sidebar shows only what each role is permitted to see."], ["02", "The 4-metric card pattern", "Every dashboard opens with the same 4-stat pattern. Any user switching modules knows exactly where to look."], ["03", "Status colors as a language", "Green = approved. Amber = pending. Red = overdue. Applied identically across all 10 modules."], ["04", "Pending Actions as daily driver", "Most users' daily workflow was just clearing pending approvals. Pending Actions became the primary widget on every manager dashboard."]].map(([n, t, d]) => (
                     <div key={n} style={{ display: "flex", gap: 20, padding: "22px 24px", borderRadius: 12, background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
                       <div style={{ fontSize: 20, fontWeight: 700, color: "#22c55e", flexShrink: 0, fontFamily: "DM Mono, monospace", minWidth: 32 }}>{n}</div>
                       <div>
@@ -756,7 +786,7 @@ export default function CaseStudy() {
                 <AccentBar />
                 <h2 style={h2}>10 modules. 50+ screens. 1 designer. Now in development.</h2>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 12, margin: "24px 0 28px" }}>
-                  {[["10","Dashboards"],["50+","Screens"],["6mo","Duration"],["1","Designer"]].map(([n, l]) => (
+                  {[["10", "Dashboards"], ["50+", "Screens"], ["6mo", "Duration"], ["1", "Designer"]].map(([n, l]) => (
                     <div key={l} style={{ padding: "24px 20px", borderRadius: 12, textAlign: "center", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
                       <div style={{ fontSize: 36, fontWeight: 700, color: "#22c55e", letterSpacing: "-0.02em", marginBottom: 6, fontFamily: "DM Sans, sans-serif" }}>{n}</div>
                       <div style={{ fontFamily: "DM Mono, monospace", fontSize: 10, color: "rgba(255,255,255,0.32)", letterSpacing: "0.08em", textTransform: "uppercase" }}>{l}</div>
