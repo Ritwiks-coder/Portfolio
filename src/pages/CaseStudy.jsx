@@ -495,7 +495,7 @@ export default function CaseStudy() {
           <img
             src={
               slug === "hsn-workflow"
-                ? "/case-studies/hsn/HSN_home.jpg"
+                ? "/case-studies/hsn/hsn-home.jpg"
                 : slug === "lazy-habit-tracker"
                   ? "/mockups/lazy-habit-tracker.png"
                   : "/case-studies/erp/Site_Dashboard.jpg"
