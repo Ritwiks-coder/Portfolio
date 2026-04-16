@@ -60,41 +60,40 @@ export default function ProjectCard({
         opacity: hovered ? 1 : 0, transition: "opacity 0.4s", zIndex: 5,
       }} />
       {/* ── Text row ─────────────────────────────────────────────────── */}
-      <div style={{
-        padding: "32px 40px 24px",
-        display: "flex", alignItems: "flex-start", justifyContent: "space-between",
-      }}>
+      <div 
+        className="px-6 py-6 sm:px-10 sm:pt-8 sm:pb-6"
+        style={{
+          display: "flex", alignItems: "flex-start", justifyContent: "space-between",
+        }}>
         <div>
           <div style={{
-            fontSize: 22, fontWeight: 600,
+            fontSize: "clamp(18px, 4vw, 22px)", fontWeight: 600,
             color: hovered ? "#f5f5f3" : "rgba(245,245,243,0.92)",
             letterSpacing: "-0.025em", marginBottom: 6,
             transition: "color 0.3s", fontFamily: "DM Sans, sans-serif",
           }}>
             {title}
           </div>
-          <div style={{
-            fontSize: 14, color: "rgba(255,255,255,0.42)",
-            fontFamily: "DM Sans, sans-serif", lineHeight: 1.5,
-            fontWeight: 300,
-          }}>
-            <span style={{ color: "rgba(255,255,255,0.60)", fontWeight: 500 }}>{company}</span>
+          <div className="text-[13px] sm:text-sm text-white/40 font-sans leading-[1.5] font-light">
+            <span className="text-white/60 font-medium">{company}</span>
             {" — "}{desc}
           </div>
         </div>
-        <div style={{
-          fontSize: 20,
-          color: hovered ? "rgba(255,255,255,0.85)" : "rgba(255,255,255,0.25)",
-          transition: "color 0.3s, transform 0.35s cubic-bezier(0.16,1,0.3,1)",
-          transform: hovered ? "translate(4px,-4px)" : "translate(0,0)",
-          flexShrink: 0, marginLeft: 18, marginTop: 4,
-        }}>
+        <div 
+          className="hidden sm:block"
+          style={{
+            fontSize: 20,
+            color: hovered ? "rgba(255,255,255,0.85)" : "rgba(255,255,255,0.25)",
+            transition: "color 0.3s, transform 0.35s cubic-bezier(0.16,1,0.3,1)",
+            transform: hovered ? "translate(4px,-4px)" : "translate(0,0)",
+            flexShrink: 0, marginLeft: 18, marginTop: 4,
+          }}>
           →
         </div>
       </div>
 
       {/* ── Floating Browser Window (Inset) ────────────────────────── */}
-      <div style={{ padding: "0 40px 48px" }}>
+      <div className="px-6 pb-8 sm:px-10 sm:pb-12">
         <div style={{
           borderRadius: 12, overflow: "hidden",
           background: "#000",
@@ -120,17 +119,17 @@ export default function ProjectCard({
               ))}
             </div>
             {/* Current Tab */}
-            <div style={{
+            <div className="hidden sm:flex" style={{
               height: 24, background: "#2d2d2d",
               borderRadius: "6px 6px 0 0", padding: "0 12px",
-              display: "flex", alignItems: "center", gap: 8,
+              alignItems: "center", gap: 8,
               border: "1px solid rgba(255,255,255,0.05)",
               borderBottom: "none", marginTop: 8,
             }}>
               <span style={{ fontSize: 10, color: "rgba(255,255,255,0.5)", fontFamily: "DM Mono, monospace" }}>{slug}.fig</span>
               <span style={{ fontSize: 10, color: "rgba(255,255,255,0.2)" }}>×</span>
             </div>
-            <div style={{ fontSize: 14, color: "rgba(255,255,255,0.15)", marginLeft: -4 }}>+</div>
+            <div className="hidden sm:block" style={{ fontSize: 14, color: "rgba(255,255,255,0.15)", marginLeft: -4 }}>+</div>
           </div>
 
           {/* Browser Chrome: Address Bar Row */}
@@ -140,27 +139,29 @@ export default function ProjectCard({
             padding: "0 12px", gap: 15,
           }}>
             <div style={{ display: "flex", gap: 12, color: "rgba(255,255,255,0.25)", fontSize: 12 }}>
-              <span>←</span><span>→</span><span>↻</span>
+              <span>←</span><span>→</span><span className="hidden sm:inline">↻</span>
             </div>
             <div style={{
               flex: 1, height: 22, background: "rgba(0,0,0,0.25)",
               borderRadius: 6, border: "1px solid rgba(255,255,255,0.04)",
               display: "flex", alignItems: "center", justifyContent: "center",
               fontFamily: "DM Mono, monospace", fontSize: 10, color: "rgba(255,255,255,0.2)",
+              whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'
             }}>
               https://{slug}.design
             </div>
-            <div style={{ width: 14, height: 14, borderRadius: "50%", background: "rgba(255,255,255,0.05)" }} />
+            <div className="hidden sm:block" style={{ width: 14, height: 14, borderRadius: "50%", background: "rgba(255,255,255,0.05)" }} />
           </div>
 
           {/* ── Mockup Content ─────────── */}
-          <div style={{
-            position: "relative",
-            width: "100%",
-            height: 380,
-            background: "#0a0a0a",
-            overflow: "hidden",
-          }}>
+          <div 
+            className="h-[240px] sm:h-[380px]"
+            style={{
+              position: "relative",
+              width: "100%",
+              background: "#0a0a0a",
+              overflow: "hidden",
+            }}>
             {mockupSrc ? (
               <img
                 src={mockupSrc}

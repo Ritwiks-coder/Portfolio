@@ -25,14 +25,16 @@ export default function Navbar() {
 
   return (
     <div 
-      className="fixed top-0 left-0 right-0 z-50 h-[72px] flex items-center justify-between px-8"
+      className="fixed top-0 left-0 right-0 z-50 h-[64px] md:h-[72px] flex items-center justify-between px-4 md:px-8"
       style={{
         background: "rgba(13,13,11,0.92)",
+        backdropFilter: "blur(12px)",
         transform: "translateZ(0)",
+        borderBottom: "1px solid rgba(255,255,255,0.05)",
       }}
     >
       {/* ── LEFT ZONE ───────────────────────────────────────────────────────── */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2 md:gap-3">
         {/* Logo icon */}
         <div style={{ position:"relative", cursor:"pointer" }} onClick={handleIconClick}>
 
@@ -77,12 +79,12 @@ export default function Navbar() {
               transition={{ duration:0.35, ease:[0.16,1,0.3,1] }}
               style={{
                 position:"relative", zIndex:1,
-                width:36, height:36,
-                borderRadius:"10px",
+                width:32, height:32,
+                borderRadius:"8px",
                 background:"rgba(255,255,255,0.08)",
                 border:`1px solid ${glows[iconIdx]}`,
                 display:"flex", alignItems:"center", justifyContent:"center",
-                fontSize:14, fontWeight:700, color:"rgba(255,255,255,0.90)",
+                fontSize:12, fontWeight:700, color:"rgba(255,255,255,0.90)",
                 fontFamily:"DM Mono, monospace",
                 userSelect:"none",
               }}
@@ -91,10 +93,10 @@ export default function Navbar() {
             </motion.div>
           </AnimatePresence>
         </div>
-        {/* Text block */}
-        <div className="flex flex-col justify-center">
-          <div className="font-sans font-semibold text-sm text-white">Rutik Ramdas Gaikwad</div>
-          <div className="font-sans text-xs text-zinc-500 mt-0.5">UI/UX Designer</div>
+        {/* Text block - Hidden on small mobile */}
+        <div className="hidden sm:flex flex-col justify-center">
+          <div className="font-sans font-semibold text-[13px] md:text-sm text-white">Rutik Ramdas Gaikwad</div>
+          <div className="font-sans text-[10px] md:text-xs text-zinc-500 mt-0.5">UI/UX Designer</div>
         </div>
       </div>
 
@@ -104,10 +106,10 @@ export default function Navbar() {
           display: 'inline-flex',
           alignItems: 'center',
           gap: '2px',
-          padding: '4px',
+          padding: '3px',
           borderRadius: '999px',
-          background: 'rgba(255,255,255,0.08)',
-          border: '1px solid rgba(255,255,255,0.10)',
+          background: 'rgba(255,255,255,0.06)',
+          border: '1px solid rgba(255,255,255,0.08)',
           overflow: 'visible',
           position: 'relative'
         }}>
@@ -120,15 +122,10 @@ export default function Navbar() {
               <button
                 key={tab}
                 onClick={() => navigate(path)}
+                className="relative px-4 sm:px-5 py-1.5 rounded-full cursor-pointer border-none bg-transparent transition-colors duration-300"
                 style={{
-                  position: 'relative',
-                  padding: '6px 20px',
-                  borderRadius: '999px',
                   fontFamily: 'var(--font-sans)',
-                  fontSize: '14px',
-                  cursor: 'pointer',
-                  border: 'none',
-                  background: 'transparent',
+                  fontSize: '13px',
                   color: isActive ? '#0f0f0d' : 'rgba(255,255,255,0.45)',
                   fontWeight: isActive ? 600 : 400,
                 }}
@@ -136,21 +133,11 @@ export default function Navbar() {
                 {isActive && (
                   <motion.span
                     layoutId="tab-pill-bg"
-                    style={{
-                      position: 'absolute',
-                      inset: 0,
-                      borderRadius: '999px',
-                      background: 'rgba(255,255,255,0.90)',
-                      zIndex: 0,
-                      boxShadow: `
-                        0 -3px 0 0 rgba(255,255,255,0.95),
-                        0 -10px 14px 2px rgba(255,255,255,0.18)
-                      `,
-                    }}
+                    className="absolute inset-0 rounded-full bg-white/95 z-0"
                     transition={{ type: 'spring', bounce: 0.2, duration: 0.4 }}
                   />
                 )}
-                <span style={{ position: 'relative', zIndex: 10 }}>{label}</span>
+                <span className="relative z-10">{label}</span>
               </button>
             );
           })}
@@ -158,20 +145,12 @@ export default function Navbar() {
       </div>
 
       {/* ── RIGHT ZONE ──────────────────────────────────────────────────────── */}
-      <div className="flex items-center gap-7">
+      <div className="hidden md:flex items-center gap-7">
         <a
           href="https://www.behance.net/ritikgaikwad12"
           target="_blank"
           rel="noreferrer"
-          style={{
-            fontFamily: 'var(--font-sans)',
-            fontSize: '13px',
-            color: 'rgba(255,255,255,0.45)',
-            textDecoration: 'none',
-            transition: 'color 0.2s'
-          }}
-          onMouseEnter={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.85)' }}
-          onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.45)' }}
+          className="text-[13px] text-white/45 hover:text-white/85 transition-colors no-underline font-sans"
         >
           Behance ↗
         </a>
@@ -179,15 +158,7 @@ export default function Navbar() {
           href="https://www.linkedin.com/in/ritik-gaikwad-17abb6267"
           target="_blank"
           rel="noreferrer"
-          style={{
-            fontFamily: 'var(--font-sans)',
-            fontSize: '13px',
-            color: 'rgba(255,255,255,0.45)',
-            textDecoration: 'none',
-            transition: 'color 0.2s'
-          }}
-          onMouseEnter={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.85)' }}
-          onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.45)' }}
+          className="text-[13px] text-white/45 hover:text-white/85 transition-colors no-underline font-sans"
         >
           LinkedIn ↗
         </a>
@@ -195,19 +166,20 @@ export default function Navbar() {
           href="https://drive.google.com/file/d/1Id7CEECKeb06EYRBBkuTOuQZdfzaDFEZ/view?usp=drive_link"
           target="_blank"
           rel="noopener noreferrer"
-          style={{
-            fontFamily: 'var(--font-sans)',
-            fontSize: '13px',
-            color: 'rgba(255,255,255,0.45)',
-            textDecoration: 'none',
-            transition: 'color 0.2s'
-          }}
-          onMouseEnter={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.85)' }}
-          onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.45)' }}
+          className="text-[13px] text-white/45 hover:text-white/85 transition-colors no-underline font-sans"
         >
           Resume ↗
         </a>
       </div>
-    </div>
+
+      {/* Mobile Action Link (only visible on mobile) */}
+      <div className="md:hidden flex items-center">
+        <a
+          href="mailto:ritikgaikwad109@gmail.com"
+          className="text-[12px] font-medium text-white/60 hover:text-white border border-white/10 px-3 py-1.5 rounded-full transition-all"
+        >
+          Contact
+        </a>
+      </div>    </div>
   );
 }

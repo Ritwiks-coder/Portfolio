@@ -73,7 +73,7 @@ function InfoContent() {
       {/* ── Bio ─────────────────────────────────────────────── */}
       <div style={{ marginBottom: 40 }}>
         <p style={{
-          fontSize: 20, fontWeight: 500,
+          fontSize: "clamp(18px, 4vw, 20px)", fontWeight: 500,
           color: "rgba(245,245,243,0.88)",
           letterSpacing: "-0.02em", lineHeight: 1.5,
           marginBottom: 12,
@@ -81,17 +81,14 @@ function InfoContent() {
         }}>
           Rutik Ramdas Gaikwad
         </p>
-        <p style={{
-          fontSize: 14, color: "rgba(255,255,255,0.42)",
-          lineHeight: 1.8, fontWeight: 300,
-          fontFamily: "DM Sans, sans-serif",
-          maxWidth: 420,
-        }}>
-          UI/UX Designer & Front-End Developer based in Pune.
-          I design digital products that live at the intersection
-          of clarity and craft — currently pursuing M.Voc Software
-          Development while taking on select design projects.
-        </p>
+          <div 
+            className="text-[14px] text-white/40 leading-[1.8] font-light font-sans"
+            style={{ maxWidth: "100%" }}>
+            UI/UX Designer & Front-End Developer based in Pune.
+            I design digital products that live at the intersection
+            of clarity and craft — currently pursuing M.Voc Software
+            Development while taking on select design projects.
+          </div>
       </div>
 
       {/* ── Experience ──────────────────────────────────────── */}
@@ -125,10 +122,7 @@ function InfoContent() {
               flexShrink: 0, marginTop: 5,
             }} />
             <div style={{ flex: 1 }}>
-              <div style={{
-                display: "flex", alignItems: "center",
-                justifyContent: "space-between", marginBottom: 3,
-              }}>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-y-1 gap-x-3 mb-2">
                 <div style={{
                   fontSize: 14, fontWeight: 500,
                   color: "rgba(255,255,255,0.82)",
@@ -139,7 +133,7 @@ function InfoContent() {
                 <div style={{
                   fontFamily: "DM Mono, monospace", fontSize: 10,
                   color: "rgba(255,255,255,0.25)", letterSpacing: "0.04em",
-                  flexShrink: 0, marginLeft: 12,
+                  flexShrink: 0,
                 }}>
                   {item.year}
                 </div>
@@ -360,7 +354,7 @@ function InfoContent() {
       </div>
 
       {/* ── Stats row ───────────────────────────────────────── */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 10 }}>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
         {[
           ["2", "Projects shipped"],
           ["1yr", "Experience"],
@@ -437,14 +431,12 @@ export default function Home() {
 
   return (
     <div style={{ backgroundColor: '#0f0f0d', minHeight: '100vh', width: '100%' }}>
-      <div style={{
-        maxWidth: '860px',
-        margin: '0 auto',
-        paddingTop: '100px',
-        paddingLeft: '24px',
-        paddingRight: '24px',
-        paddingBottom: '80px',
-      }}>
+      <div 
+        className="responsive-container"
+        style={{
+          paddingTop: 'calc(64px + 32px)', // Navbar height + offset
+          paddingBottom: '80px',
+        }}>
 
         <AnimatePresence mode="wait">
           {activeTab === "work" ? (
@@ -540,15 +532,12 @@ export default function Home() {
                 </div>
 
                 {/* WINDOW BODY */}
-                <div style={{
-                  background: '#161412',
-                  minHeight: '440px',
-                  position: 'relative',
-                  padding: '52px 52px 80px 52px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  height: '100%'
-                }}>
+                <div 
+                  className="flex flex-col min-h-[400px] md:min-h-[440px] relative px-6 py-8 pb-16 md:p-[52px] md:pb-20"
+                  style={{
+                    background: '#161412',
+                    height: '100%'
+                  }}>
 
                   {/* HEADING (top-left) */}
                   <h1 style={{
@@ -571,29 +560,12 @@ export default function Home() {
                     }}>stories.</span>
                   </h1>
 
-                  {/* SUBTITLE (bottom-right) */}
-                  <div style={{
-                    position: 'relative',
-                    marginTop: 'auto',
-                    marginBottom: '52px',
-                    alignSelf: 'flex-end',
-                    textAlign: 'right'
-                  }}>
-                    <div style={{
-                      fontFamily: 'var(--font-sans)',
-                      fontSize: '15px',
-                      fontWeight: 500,
-                      color: 'rgba(245,245,243,0.90)'
-                    }}>
+                  {/* SUBTITLE (bottom-right) - Centered or shifted on mobile */}
+                  <div className="relative mt-auto mb-10 sm:mb-[52px] self-center sm:self-end text-center sm:text-right">
+                    <div className="font-sans text-sm md:text-[15px] font-medium text-white/90">
                       UI/UX Designer & Developer. Based in Pune.
                     </div>
-                    <div style={{
-                      fontFamily: 'var(--font-sans)',
-                      fontSize: '14px',
-                      fontWeight: 400,
-                      color: 'rgba(245,245,243,0.38)',
-                      marginTop: '4px'
-                    }}>
+                    <div className="font-sans text-[12px] md:text-sm font-normal text-white/40 mt-1">
                       Previously at LNETEC.
                     </div>
                   </div>

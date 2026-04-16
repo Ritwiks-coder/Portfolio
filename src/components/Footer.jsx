@@ -31,13 +31,14 @@ export default function Footer() {
   };
 
   return (
-    <footer style={{ background: '#0f0f0d', borderTop: '1px solid rgba(255,255,255,0.05)', padding: '80px 0 40px' }}>
-      <div style={{ maxWidth: 1160, margin: '0 auto', padding: '0 24px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 40, marginBottom: 80 }}>
+    <footer className="bg-[#0f0f0d] border-t border-white/5 py-[60px] md:py-20">
+      <div className="responsive-container">
+        <div 
+          className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-40 mb-16 md:mb-20">
           {/* Left Column */}
           <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={fadeUp} transition={{ duration: 0.6 }}>
-            <h2 style={{ fontSize: 48, fontWeight: 700, color: 'rgba(255,255,255,0.92)', letterSpacing: '-0.04em', marginBottom: 24, fontFamily: 'DM Sans, sans-serif' }}>
-              Let's build something <br /> exceptional together.
+            <h2 style={{ fontSize: "clamp(32px, 5vw, 48px)", fontWeight: 700, color: 'rgba(255,255,255,0.92)', letterSpacing: '-0.04em', marginBottom: 24, fontFamily: 'DM Sans, sans-serif' }}>
+              Let's build something <br className="hidden sm:block" /> exceptional together.
             </h2>
             <a href="mailto:ritikgaikwad109@gmail.com" 
                style={{ 
@@ -62,8 +63,8 @@ export default function Footer() {
 
           {/* Right Column */}
           <motion.div initial="hidden" whileInView="show" viewport={{ once: true }} variants={fadeUp} transition={{ duration: 0.6, delay: 0.1 }}
-                      style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', alignItems: 'flex-end' }}>
-            <div style={{ display: 'flex', gap: 32, marginBottom: 12 }}>
+                      className="flex flex-col md:items-end md:justify-end">
+            <div className="flex flex-wrap gap-x-8 gap-y-3 mb-4 md:mb-3">
               {socialLinks.map((link) => (
                 <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer"
                    style={{ 
@@ -86,12 +87,12 @@ export default function Footer() {
         </div>
 
         {/* Bottom Row */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: 32, borderTop: '1px solid rgba(255,255,255,0.03)' }}>
-          <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.25)', fontFamily: 'DM Sans, sans-serif' }}>
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-6 pt-8 border-t border-white/5">
+          <p className="text-[12px] text-white/25 font-sans text-center sm:text-left">
             © {new Date().getFullYear()} Designed & Built by Rutik Gaikwad
           </p>
-          <div style={{ display: 'flex', gap: 24 }}>
-            <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.15)', fontFamily: 'DM Mono, monospace', letterSpacing: '0.05em' }}>
+          <div className="flex gap-6">
+            <span className="text-[10px] sm:text-[11px] text-white/15 font-mono tracking-wider uppercase">
               BUILT WITH VITE & FRAMER MOTION
             </span>
           </div>

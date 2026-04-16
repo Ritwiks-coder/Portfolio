@@ -102,9 +102,8 @@ function Callout({ eyebrow, text }) {
     <motion.div
       variants={fadeUp} initial="hidden" whileInView="show"
       viewport={{ once: true, margin: "-40px" }}
+      className="my-8 md:my-12 px-5 py-6 md:px-10 md:py-9"
       style={{
-        margin: "48px 0",
-        padding: "36px 40px",
         borderRadius: 12,
         background: "rgba(255,255,255,0.03)",
         border: "1px solid rgba(255,255,255,0.08)",
@@ -114,12 +113,12 @@ function Callout({ eyebrow, text }) {
       <div style={{
         fontFamily: "DM Mono, monospace", fontSize: 10,
         letterSpacing: "0.16em", textTransform: "uppercase",
-        color: "rgba(255,255,255,0.28)", marginBottom: 20,
+        color: "rgba(255,255,255,0.28)", marginBottom: 16,
       }}>
         {eyebrow}
       </div>
       <p style={{
-        fontSize: "clamp(18px, 2vw, 22px)", fontWeight: 400,
+        fontSize: "clamp(16px, 4vw, 22px)", fontWeight: 400,
         color: "rgba(255,255,255,0.85)", lineHeight: 1.6,
         letterSpacing: "-0.01em", maxWidth: 680, margin: "0 auto",
         fontFamily: "DM Sans, sans-serif",
@@ -381,7 +380,9 @@ export default function CaseStudy() {
         boxShadow: `0 0 40px ${accent}12, inset 0 0 0 1px ${accent}22`,
         overflow: "hidden",
       }}>
-        <div style={{ background: "#0f0f0d", borderRadius: 13 }}>{children}</div>
+        <div 
+          className="overflow-x-auto" 
+          style={{ background: "#0f0f0d", borderRadius: 13 }}>{children}</div>
       </div>
       <p style={{ fontFamily: "DM Mono, monospace", fontSize: 11, color: "rgba(255,255,255,0.22)", textAlign: "right", letterSpacing: "0.05em", marginTop: 8 }}>{caption}</p>
     </motion.div>
@@ -391,8 +392,10 @@ export default function CaseStudy() {
     <div style={{ background: "#0f0f0d", minHeight: "100vh", color: "#f4f4f5" }}>
       <FloatingBack onClick={() => navigate("/")} />
 
-      {/* ── HERO HEADER — centered, like Perry Wang reference ─────── */}
-      <div style={{ textAlign: "center", padding: "120px 24px 60px", maxWidth: 760, margin: "0 auto" }}>
+      {/* ── HERO HEADER ─────── */}
+      <div 
+        className="px-6 pb-12 pt-24 sm:pt-[120px]"
+        style={{ textAlign: "center", maxWidth: 760, margin: "0 auto" }}>
 
         {/* Back button (top of page) */}
         <motion.button
@@ -460,7 +463,7 @@ export default function CaseStudy() {
       <motion.div
         initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-        style={{ maxWidth: 960, margin: "0 auto 80px", padding: "0 24px" }}
+        className="max-w-[1160px] mx-auto mb-16 sm:mb-20 px-6"
       >
         {/* MacBook-style container */}
         <div style={{
@@ -470,22 +473,20 @@ export default function CaseStudy() {
           boxShadow: "0 40px 100px rgba(0,0,0,0.7)",
         }}>
           {/* Chrome bar */}
-          <div style={{
-            height: 42, background: "#2c2c2e",
-            borderBottom: "1px solid rgba(0,0,0,0.6)",
-            display: "flex", alignItems: "center", padding: "0 16px", position: "relative",
-          }}>
-            <div style={{ display: "flex", gap: 7 }}>
+          <div className="h-8 sm:h-[42px] bg-[#2c2c2e] border-b border-black/60 flex items-center px-3 sm:px-4 relative">
+            <div className="flex gap-1.5 sm:gap-[7px]">
               {[["#ff5f57"], ["#ffbd2e"], ["#28c840"]].map(([c]) => (
-                <div key={c} style={{ width: 12, height: 12, borderRadius: "50%", background: c }} />
+                <div key={c} className="w-2 h-2 sm:w-3 sm:h-3 rounded-full" style={{ background: c }} />
               ))}
             </div>
-            <div style={{
-              position: "absolute", left: "50%", transform: "translateX(-50%)",
-              width: 220, height: 24, background: "rgba(255,255,255,0.06)",
-              borderRadius: 6, border: "1px solid rgba(255,255,255,0.07)",
-              display: "flex", alignItems: "center", justifyContent: "center",
-            }}>
+            <div 
+              className="hidden sm:flex"
+              style={{
+                position: "absolute", left: "50%", transform: "translateX(-50%)",
+                width: 220, height: 24, background: "rgba(255,255,255,0.06)",
+                borderRadius: 6, border: "1px solid rgba(255,255,255,0.07)",
+                alignItems: "center", justifyContent: "center",
+              }}>
               <span style={{ fontFamily: "DM Mono, monospace", fontSize: 10, color: "rgba(255,255,255,0.22)" }}>
                 {slug}.fig
               </span>
@@ -507,21 +508,14 @@ export default function CaseStudy() {
       </motion.div>
 
       {/* ── 2-COLUMN BODY ──────────────────────────────────────────── */}
-      <div style={{
-        maxWidth: 1160, margin: "0 auto",
-        padding: "0 24px 120px",
-        display: "grid",
-        gridTemplateColumns: "1fr 160px",
-        gap: "0 60px",
-        alignItems: "flex-start",
-      }}>
+      <div className="responsive-container pb-[120px] grid grid-cols-1 lg:grid-cols-[1fr_160px] gap-10 lg:gap-[60px] items-start">
 
         {/* ── CENTER CONTENT (full width feel) ─────────────────────── */}
         <main style={{ minWidth: 0 }}>
 
           {/* Meta row */}
           <motion.div variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}
-            style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 10, marginBottom: 80 }}>
+            className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-4 mb-16 sm:mb-20">
             {(slug === "lazy-habit-tracker"
               ? [["Role", "Solo Designer"], ["Platform", "iOS / Android"], ["Tool", "Figma"], ["Status", "In Progress"]]
               : isHsn
@@ -533,7 +527,7 @@ export default function CaseStudy() {
                 background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)",
               }}>
                 <div style={{ fontFamily: "DM Mono, monospace", fontSize: 10, letterSpacing: "0.08em", color: "rgba(255,255,255,0.28)", textTransform: "uppercase", marginBottom: 6 }}>{k}</div>
-                <div style={{ fontSize: 14, fontWeight: 500, color: "rgba(255,255,255,0.82)", fontFamily: "DM Sans, sans-serif" }}>{v}</div>
+                <div className="text-[13px] sm:text-sm font-medium text-white/80 font-sans">{v}</div>
               </div>
             ))}
           </motion.div>
@@ -575,7 +569,9 @@ export default function CaseStudy() {
                 <p style={eyebrow}>03 — Process</p>
                 <AccentBar />
                 <h2 style={h2}>Research → IA → Admin flow → Public flow → Prototype</h2>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: 10, margin: "24px 0 28px" }}>
+                <div 
+                  className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-2.5 mb-8"
+                >
                   {[["01", "Research", "HSN structure & pain points"], ["02", "IA", "Admin & public architecture"], ["03", "Admin", "Data management backend"], ["04", "Public", "Guided classification wizard"], ["05", "Prototype", "Figma + dev handoff"]].map(([n, t, d]) => (
                     <div key={n} style={{ padding: "16px 14px", borderRadius: 10, background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
                       <div style={{ fontSize: 18, fontWeight: 700, color: "#f59e0b", marginBottom: 6, fontFamily: "DM Sans, sans-serif" }}>{n}</div>
@@ -628,28 +624,28 @@ export default function CaseStudy() {
                 <p style={eyebrow}>08 — Key Decisions</p>
                 <AccentBar />
                 <h2 style={h2}>Turning a legal hierarchy into a human flow.</h2>
-                <div style={{ display: "flex", flexDirection: "column", gap: 20, margin: "24px 0" }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: 16, margin: "24px 0" }}>
                   {[["01", "Step-by-step over search-all", "Breaking classification into 5 guided steps mirrors how HSN actually works — dramatically reducing wrong selections compared to a single search bar."], ["02", "Definition panel at every step", "Each step shows a plain-English definition. The most requested feature in research — people needed to understand what they were selecting, not just see code numbers."], ["03", "Show all duty information at result", "Most tools showed only the HSN code. The result page shows GST rate, customs duty, BIS requirements, case law, and notes — everything a business needs in one place."], ["04", "Bulk upload for power users", "Importers dealing with hundreds of SKUs needed a different solution. The bulk upload feature processes entire product lists at once."], ["05", "Admin mirrors the public hierarchy", "The admin sidebar follows the exact same structure users navigate on the public side — making data entry intuitive for the operations team."]].map(([n, t, d]) => (
-                    <div key={n} style={{ display: "flex", gap: 20, padding: "22px 24px", borderRadius: 12, background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
-                      <div style={{ fontSize: 20, fontWeight: 700, color: "#f59e0b", flexShrink: 0, fontFamily: "DM Mono, monospace", minWidth: 32 }}>{n}</div>
+                    <div key={n} className="flex flex-wrap sm:flex-nowrap gap-3 sm:gap-5 p-[18px_20px] sm:p-6 rounded-xl bg-white/5 border border-white/10">
+                      <div className="text-lg sm:text-xl font-bold text-[#f59e0b] shrink-0 font-mono min-w-[28px]">{n}</div>
                       <div>
-                        <div style={{ fontSize: 15, fontWeight: 600, color: "rgba(255,255,255,0.85)", marginBottom: 8, fontFamily: "DM Sans, sans-serif" }}>{t}</div>
-                        <div style={{ fontSize: 14, color: "rgba(255,255,255,0.46)", lineHeight: 1.75, fontFamily: "DM Sans, sans-serif" }}>{d}</div>
+                        <div className="text-sm sm:text-[15px] font-semibold text-white/85 mb-1.5 font-sans">{t}</div>
+                        <div className="text-[13px] sm:text-sm text-white/45 leading-[1.7] font-sans">{d}</div>
                       </div>
                     </div>
                   ))}
                 </div>
               </motion.section>
 
-              <motion.section id="outcomes" style={sec} variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}>
+               <motion.section id="outcomes" style={sec} variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}>
                 <p style={eyebrow}>09 — Outcomes</p>
                 <AccentBar />
                 <h2 style={h2}>A complex system made simple. Delivered.</h2>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 12, margin: "24px 0 28px" }}>
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4 mb-8">
                   {[["3", "Surfaces"], ["5", "Step flow"], ["8+", "Admin modules"], ["1", "Designer"]].map(([n, l]) => (
-                    <div key={l} style={{ padding: "24px 20px", borderRadius: 12, textAlign: "center", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
-                      <div style={{ fontSize: 36, fontWeight: 700, color: "#f59e0b", letterSpacing: "-0.02em", marginBottom: 6, fontFamily: "DM Sans, sans-serif" }}>{n}</div>
-                      <div style={{ fontFamily: "DM Mono, monospace", fontSize: 10, color: "rgba(255,255,255,0.32)", letterSpacing: "0.08em", textTransform: "uppercase" }}>{l}</div>
+                    <div key={l} className="p-5 sm:p-6 rounded-xl text-center bg-white/5 border border-white/10">
+                      <div className="text-3xl sm:text-4xl font-bold text-[#f59e0b] tracking-tight mb-1.5 font-sans">{n}</div>
+                      <div className="font-mono text-[9px] sm:text-[10px] text-white/30 tracking-widest uppercase">{l}</div>
                     </div>
                   ))}
                 </div>
@@ -710,7 +706,7 @@ export default function CaseStudy() {
                 <p style={eyebrow}>03 — Process</p>
                 <AccentBar />
                 <h2 style={h2}>Discovery → Architecture → Design → Prototype → Handoff</h2>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: 10, margin: "24px 0 28px" }}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2.5 mb-8">
                   {[["01", "Stakeholder Interviews", "Understanding workflows"], ["02", "Info Architecture", "Mapping roles & screens"], ["03", "Design System", "Components before modules"], ["04", "Module Design", "All 10 dashboards"], ["05", "Dev Handoff", "Annotated Figma"]].map(([n, t, d]) => (
                     <div key={n} style={{ padding: "16px 14px", borderRadius: 10, background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
                       <div style={{ fontSize: 18, fontWeight: 700, color: "#22c55e", marginBottom: 6, fontFamily: "DM Sans, sans-serif" }}>{n}</div>
@@ -785,11 +781,11 @@ export default function CaseStudy() {
                 <p style={eyebrow}>09 — Outcomes</p>
                 <AccentBar />
                 <h2 style={h2}>10 modules. 50+ screens. 1 designer. Now in development.</h2>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 12, margin: "24px 0 28px" }}>
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4 mb-8">
                   {[["10", "Dashboards"], ["50+", "Screens"], ["6mo", "Duration"], ["1", "Designer"]].map(([n, l]) => (
-                    <div key={l} style={{ padding: "24px 20px", borderRadius: 12, textAlign: "center", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
-                      <div style={{ fontSize: 36, fontWeight: 700, color: "#22c55e", letterSpacing: "-0.02em", marginBottom: 6, fontFamily: "DM Sans, sans-serif" }}>{n}</div>
-                      <div style={{ fontFamily: "DM Mono, monospace", fontSize: 10, color: "rgba(255,255,255,0.32)", letterSpacing: "0.08em", textTransform: "uppercase" }}>{l}</div>
+                    <div key={l} className="p-5 sm:p-6 rounded-xl text-center bg-white/5 border border-white/10">
+                      <div className="text-3xl sm:text-4xl font-bold text-[#22c55e] tracking-tight mb-1.5 font-sans">{n}</div>
+                      <div className="font-mono text-[9px] sm:text-[10px] text-white/30 tracking-widest uppercase">{l}</div>
                     </div>
                   ))}
                 </div>
@@ -801,7 +797,9 @@ export default function CaseStudy() {
         </main>
 
         {/* ── STICKY TOC (right) — minimal like Perry Wang reference ── */}
-        <aside style={{ position: "sticky", top: 96 }}>
+        <aside 
+          className="hidden lg:block"
+          style={{ position: "sticky", top: 96 }}>
           <p style={{
             fontFamily: "DM Mono, monospace", fontSize: 10,
             letterSpacing: "0.14em", textTransform: "uppercase",
