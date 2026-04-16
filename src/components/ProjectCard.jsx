@@ -60,7 +60,7 @@ export default function ProjectCard({
         opacity: hovered ? 1 : 0, transition: "opacity 0.4s", zIndex: 5,
       }} />
       {/* ── Text row ─────────────────────────────────────────────────── */}
-      <div 
+      <div
         className="px-6 py-6 sm:px-10 sm:pt-8 sm:pb-6"
         style={{
           display: "flex", alignItems: "flex-start", justifyContent: "space-between",
@@ -79,7 +79,7 @@ export default function ProjectCard({
             {" — "}{desc}
           </div>
         </div>
-        <div 
+        <div
           className="hidden sm:block"
           style={{
             fontSize: 20,
@@ -154,7 +154,7 @@ export default function ProjectCard({
           </div>
 
           {/* ── Mockup Content ─────────── */}
-          <div 
+          <div
             className="h-[240px] sm:h-[380px]"
             style={{
               position: "relative",

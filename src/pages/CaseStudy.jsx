@@ -380,8 +380,8 @@ export default function CaseStudy() {
         boxShadow: `0 0 40px ${accent}12, inset 0 0 0 1px ${accent}22`,
         overflow: "hidden",
       }}>
-        <div 
-          className="overflow-x-auto" 
+        <div
+          className="overflow-x-auto"
           style={{ background: "#0f0f0d", borderRadius: 13 }}>{children}</div>
       </div>
       <p style={{ fontFamily: "DM Mono, monospace", fontSize: 11, color: "rgba(255,255,255,0.22)", textAlign: "right", letterSpacing: "0.05em", marginTop: 8 }}>{caption}</p>
@@ -393,7 +393,7 @@ export default function CaseStudy() {
       <FloatingBack onClick={() => navigate("/")} />
 
       {/* ── HERO HEADER ─────── */}
-      <div 
+      <div
         className="px-6 pb-12 pt-24 sm:pt-[120px]"
         style={{ textAlign: "center", maxWidth: 760, margin: "0 auto" }}>
 
@@ -479,7 +479,7 @@ export default function CaseStudy() {
                 <div key={c} className="w-2 h-2 sm:w-3 sm:h-3 rounded-full" style={{ background: c }} />
               ))}
             </div>
-            <div 
+            <div
               className="hidden sm:flex"
               style={{
                 position: "absolute", left: "50%", transform: "translateX(-50%)",
@@ -569,7 +569,7 @@ export default function CaseStudy() {
                 <p style={eyebrow}>03 — Process</p>
                 <AccentBar />
                 <h2 style={h2}>Research → IA → Admin flow → Public flow → Prototype</h2>
-                <div 
+                <div
                   className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-2.5 mb-8"
                 >
                   {[["01", "Research", "HSN structure & pain points"], ["02", "IA", "Admin & public architecture"], ["03", "Admin", "Data management backend"], ["04", "Public", "Guided classification wizard"], ["05", "Prototype", "Figma + dev handoff"]].map(([n, t, d]) => (
@@ -637,7 +637,7 @@ export default function CaseStudy() {
                 </div>
               </motion.section>
 
-               <motion.section id="outcomes" style={sec} variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}>
+              <motion.section id="outcomes" style={sec} variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}>
                 <p style={eyebrow}>09 — Outcomes</p>
                 <AccentBar />
                 <h2 style={h2}>A complex system made simple. Delivered.</h2>
@@ -799,7 +799,7 @@ export default function CaseStudy() {
         {/* ── STICKY TOC (right) — minimal like Perry Wang reference ── */}
         <aside 
           className="hidden lg:block"
-          style={{ position: "sticky", top: 96 }}>
+          style={{ position: "sticky", top: 120, height: "fit-content" }}>
           <p style={{
             fontFamily: "DM Mono, monospace", fontSize: 10,
             letterSpacing: "0.14em", textTransform: "uppercase",

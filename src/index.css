@@ -7,13 +7,13 @@
 
 html {
   scroll-behavior: smooth;
-  overflow-x: hidden;
+  overflow-x: clip; /* clip doesn't break position: sticky like hidden does */
 }
 
 body {
   background-color: #0f0f0d;
   color: #f4f4f5;
-  overflow-x: hidden;
+  overflow-x: clip;
   width: 100%;
 }
 

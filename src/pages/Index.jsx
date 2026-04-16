@@ -81,14 +81,14 @@ function InfoContent() {
         }}>
           Rutik Ramdas Gaikwad
         </p>
-          <div 
-            className="text-[14px] text-white/40 leading-[1.8] font-light font-sans"
-            style={{ maxWidth: "100%" }}>
-            UI/UX Designer & Front-End Developer based in Pune.
-            I design digital products that live at the intersection
-            of clarity and craft — currently pursuing M.Voc Software
-            Development while taking on select design projects.
-          </div>
+        <div
+          className="text-[14px] text-white/40 leading-[1.8] font-light font-sans"
+          style={{ maxWidth: "100%" }}>
+          UI/UX Designer & Front-End Developer based in Pune.
+          I design digital products that live at the intersection
+          of clarity and craft — currently pursuing M.Voc Software
+          Development while taking on select design projects.
+        </div>
       </div>
 
       {/* ── Experience ──────────────────────────────────────── */}
@@ -431,7 +431,7 @@ export default function Home() {
 
   return (
     <div style={{ backgroundColor: '#0f0f0d', minHeight: '100vh', width: '100%' }}>
-      <div 
+      <div
         className="responsive-container"
         style={{
           paddingTop: 'calc(64px + 32px)', // Navbar height + offset
@@ -532,7 +532,7 @@ export default function Home() {
                 </div>
 
                 {/* WINDOW BODY */}
-                <div 
+                <div
                   className="flex flex-col min-h-[400px] md:min-h-[440px] relative px-6 py-8 pb-16 md:p-[52px] md:pb-20"
                   style={{
                     background: '#161412',
