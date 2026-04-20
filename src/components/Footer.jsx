@@ -22,7 +22,7 @@ export default function Footer() {
     { label: 'LinkedIn', href: 'https://www.linkedin.com/in/ritik-gaikwad-17abb6267' },
     { label: 'Behance', href: 'https://www.behance.net/ritikgaikwad12' },
     { label: 'GitHub', href: 'https://github.com/Ritwiks-coder' },
-    { label: 'Resume', href: 'https://drive.google.com/file/d/1Id7CEECKeb06EYRBBkuTOuQZdfzaDFEZ/view?usp=drive_link' },
+    { label: 'Resume', href: 'https://drive.google.com/file/d/17qRQzmC9KyBoyrbmR7pvzP5J0ISn1WxL/view?usp=drive_link' },
   ];
 
   const fadeUp = {

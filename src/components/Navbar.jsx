@@ -108,10 +108,12 @@ export default function Navbar() {
           gap: '2px',
           padding: '3px',
           borderRadius: '999px',
-          background: 'rgba(255,255,255,0.06)',
-          border: '1px solid rgba(255,255,255,0.08)',
+          background: 'rgba(255,255,255,0.03)',
+          border: '1px solid rgba(255,255,255,0.06)',
+          backdropFilter: 'blur(8px)',
           overflow: 'visible',
-          position: 'relative'
+          position: 'relative',
+          boxShadow: 'inset 0 0 0 1px rgba(255,255,255,0.02)',
         }}>
           {['work', 'info'].map((tab) => {
             const isActive = activeTab === tab;
@@ -122,20 +124,38 @@ export default function Navbar() {
               <button
                 key={tab}
                 onClick={() => navigate(path)}
-                className="relative px-4 sm:px-5 py-1.5 rounded-full cursor-pointer border-none bg-transparent transition-colors duration-300"
+                className="relative px-5 sm:px-6 py-2 rounded-full cursor-pointer border-none bg-transparent transition-all duration-300"
                 style={{
                   fontFamily: 'var(--font-sans)',
                   fontSize: '13px',
-                  color: isActive ? '#0f0f0d' : 'rgba(255,255,255,0.45)',
+                  color: isActive ? '#ffffff' : 'rgba(255,255,255,0.40)',
                   fontWeight: isActive ? 600 : 400,
                 }}
               >
                 {isActive && (
                   <motion.span
                     layoutId="tab-pill-bg"
-                    className="absolute inset-0 rounded-full bg-white/95 z-0"
-                    transition={{ type: 'spring', bounce: 0.2, duration: 0.4 }}
-                  />
+                    className="absolute inset-x-0 inset-y-0 rounded-full z-0"
+                    style={{
+                      background: 'linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.08) 100%)',
+                      backdropFilter: 'blur(14px) saturate(1.8)',
+                      border: '1px solid rgba(255,255,255,0.22)',
+                      boxShadow: '0 8px 24px rgba(0,0,0,0.3), inset 0 0 2px rgba(255,255,255,0.25)',
+                    }}
+                    transition={{ type: 'spring', bounce: 0.18, duration: 0.5 }}
+                  >
+                    {/* Intensified Spotlight Line */}
+                    <div style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: '20%',
+                      right: '20%',
+                      height: '1.5px',
+                      background: 'linear-gradient(90deg, transparent, rgba(255,255,255,1), transparent)',
+                      filter: 'blur(0.3px)',
+                      boxShadow: '0 0 10px rgba(255,255,255,0.4)',
+                    }} />
+                  </motion.span>
                 )}
                 <span className="relative z-10">{label}</span>
               </button>
@@ -163,7 +183,7 @@ export default function Navbar() {
           LinkedIn ↗
         </a>
         <a
-          href="https://drive.google.com/file/d/1Id7CEECKeb06EYRBBkuTOuQZdfzaDFEZ/view?usp=drive_link"
+          href="https://drive.google.com/file/d/17qRQzmC9KyBoyrbmR7pvzP5J0ISn1WxL/view?usp=drive_link"
           target="_blank"
           rel="noopener noreferrer"
           className="text-[13px] text-white/45 hover:text-white/85 transition-colors no-underline font-sans"
