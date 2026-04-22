@@ -93,7 +93,7 @@ export default function ProjectCard({
       </div>
 
       {/* ── Floating Browser Window (Inset) ────────────────────────── */}
-      <div className="px-6 pb-8 sm:px-10 sm:pb-12">
+      <div className="px-8 pb-10 sm:px-24 sm:pb-16">
         <div style={{
           borderRadius: 12, overflow: "hidden",
           background: "#000",
@@ -107,55 +107,55 @@ export default function ProjectCard({
 
           {/* Browser Chrome: Tab Bar */}
           <div style={{
-            height: 32, background: "#1a1a1a",
+            height: 26, background: "#1a1a1a",
             borderBottom: "1px solid rgba(255,255,255,0.03)",
             display: "flex", alignItems: "center",
-            padding: "0 12px", gap: 12, position: "relative",
+            padding: "0 10px", gap: 10, position: "relative",
           }}>
             {/* Traffic lights */}
-            <div style={{ display: "flex", gap: 6 }}>
+            <div style={{ display: "flex", gap: 5 }}>
               {["#ff5f57", "#ffbd2e", "#28c840"].map((bg) => (
-                <div key={bg} style={{ width: 9, height: 9, borderRadius: "50%", background: bg }} />
+                <div key={bg} style={{ width: 7, height: 7, borderRadius: "50%", background: bg }} />
               ))}
             </div>
             {/* Current Tab */}
             <div className="hidden sm:flex" style={{
-              height: 24, background: "#2d2d2d",
-              borderRadius: "6px 6px 0 0", padding: "0 12px",
-              alignItems: "center", gap: 8,
+              height: 20, background: "#2d2d2d",
+              borderRadius: "5px 5px 0 0", padding: "0 10px",
+              alignItems: "center", gap: 6,
               border: "1px solid rgba(255,255,255,0.05)",
-              borderBottom: "none", marginTop: 8,
+              borderBottom: "none", marginTop: 7,
             }}>
-              <span style={{ fontSize: 10, color: "rgba(255,255,255,0.5)", fontFamily: "DM Mono, monospace" }}>{slug}.fig</span>
-              <span style={{ fontSize: 10, color: "rgba(255,255,255,0.2)" }}>×</span>
+              <span style={{ fontSize: 9, color: "rgba(255,255,255,0.5)", fontFamily: "DM Mono, monospace" }}>{slug}.fig</span>
+              <span style={{ fontSize: 9, color: "rgba(255,255,255,0.2)" }}>×</span>
             </div>
-            <div className="hidden sm:block" style={{ fontSize: 14, color: "rgba(255,255,255,0.15)", marginLeft: -4 }}>+</div>
+            <div className="hidden sm:block" style={{ fontSize: 12, color: "rgba(255,255,255,0.15)", marginLeft: -4 }}>+</div>
           </div>
 
           {/* Browser Chrome: Address Bar Row */}
           <div style={{
-            height: 34, background: "#2d2d2d",
+            height: 28, background: "#2d2d2d",
             display: "flex", alignItems: "center",
-            padding: "0 12px", gap: 15,
+            padding: "0 10px", gap: 12,
           }}>
-            <div style={{ display: "flex", gap: 12, color: "rgba(255,255,255,0.25)", fontSize: 12 }}>
+            <div style={{ display: "flex", gap: 10, color: "rgba(255,255,255,0.25)", fontSize: 10 }}>
               <span>←</span><span>→</span><span className="hidden sm:inline">↻</span>
             </div>
             <div style={{
-              flex: 1, height: 22, background: "rgba(0,0,0,0.25)",
-              borderRadius: 6, border: "1px solid rgba(255,255,255,0.04)",
+              flex: 1, height: 18, background: "rgba(0,0,0,0.25)",
+              borderRadius: 4, border: "1px solid rgba(255,255,255,0.04)",
               display: "flex", alignItems: "center", justifyContent: "center",
-              fontFamily: "DM Mono, monospace", fontSize: 10, color: "rgba(255,255,255,0.2)",
+              fontFamily: "DM Mono, monospace", fontSize: 9, color: "rgba(255,255,255,0.2)",
               whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'
             }}>
               https://{slug}.design
             </div>
-            <div className="hidden sm:block" style={{ width: 14, height: 14, borderRadius: "50%", background: "rgba(255,255,255,0.05)" }} />
+            <div className="hidden sm:block" style={{ width: 12, height: 12, borderRadius: "50%", background: "rgba(255,255,255,0.05)" }} />
           </div>
 
           {/* ── Mockup Content ─────────── */}
           <div
-            className="h-[240px] sm:h-[380px]"
+            className="h-[320px] sm:h-[520px]"
             style={{
               position: "relative",
               width: "100%",
