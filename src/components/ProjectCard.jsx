@@ -5,11 +5,19 @@ import { useNavigate } from "react-router-dom";
 export default function ProjectCard({
   title, company, desc, slug, index,
   glowTop, glowBorder, glowBlob, mockupSrc,
+  onHoverEnter, onHoverLeave,
 }) {
   const navigate = useNavigate();
   const [hovered, setHovered] = useState(false);
+  
   function handleMouseEnter() {
     setHovered(true);
+    if (onHoverEnter) onHoverEnter();
+  }
+  
+  function handleMouseLeave() {
+    setHovered(false);
+    if (onHoverLeave) onHoverLeave();
   }
 
   return (
@@ -18,7 +26,7 @@ export default function ProjectCard({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
       onMouseEnter={handleMouseEnter}
-      onMouseLeave={() => setHovered(false)}
+      onMouseLeave={handleMouseLeave}
       onClick={() => navigate(`/case-study/${slug}`)}
       style={{
         position: "relative",
@@ -30,9 +38,10 @@ export default function ProjectCard({
         willChange: "transform",
         transition: "border-color 0.4s, transform 0.35s cubic-bezier(0.16,1,0.3,1)",
         transform: hovered ? "translateY(-4px) translateZ(0)" : "translateY(0) translateZ(0)",
+        boxShadow: hovered ? `0 20px 40px ${glowBorder}15` : "none",
       }}
     >
-      {/* Radial glow blob — Fix 3 */}
+      {/* Radial glow blob */}
       <div style={{
         position: "absolute",
         inset: -1,
@@ -44,7 +53,7 @@ export default function ProjectCard({
         zIndex: 0,
       }} />
 
-      {/* Sweep shimmer — CSS keyframes Fix 7 */}
+      {/* Sweep shimmer */}
       <div style={{
         position: "absolute", top: 0, bottom: 0, left: "-60%", width: "55%",
         background: "linear-gradient(to right, transparent, rgba(255,255,255,0.12) 50%, transparent)",
@@ -65,7 +74,7 @@ export default function ProjectCard({
         style={{
           display: "flex", alignItems: "flex-start", justifyContent: "space-between",
         }}>
-        <div>
+        <div className="flex-1">
           <div style={{
             fontSize: "clamp(18px, 4vw, 22px)", fontWeight: 600,
             color: hovered ? "#f5f5f3" : "rgba(245,245,243,0.92)",
@@ -74,6 +83,7 @@ export default function ProjectCard({
           }}>
             {title}
           </div>
+          
           <div className="text-[13px] sm:text-sm text-white/40 font-sans leading-[1.5] font-light">
             <span className="text-white/60 font-medium">{company}</span>
             {" — "}{desc}

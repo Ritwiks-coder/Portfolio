@@ -5,6 +5,10 @@
   --font-serif: "Playfair Display", Georgia, serif;
 }
 
+* {
+  cursor: none !important;
+}
+
 html {
   scroll-behavior: smooth;
   overflow-x: clip; /* clip doesn't break position: sticky like hidden does */

@@ -52,6 +52,8 @@ function FloatingBack({ onClick }) {
 function CaseImage({
   src, caption, label, fullBleed = false,
 }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+
   return (
     <motion.div
       variants={fadeUp} initial="hidden" whileInView="show"
@@ -70,18 +72,47 @@ function CaseImage({
           <span style={{ color: "rgba(255,255,255,0.18)" }}>IMAGE</span>
         </div>
       )}
-      <div style={{
-        borderRadius: fullBleed ? 10 : 10,
-        overflow: "hidden",
-        border: "1px solid rgba(255,255,255,0.08)",
-        background: "#111113",
-      }}>
+      <div 
+        onClick={() => setIsExpanded(!isExpanded)}
+        style={{
+          borderRadius: 10,
+          overflow: "hidden",
+          border: "1px solid rgba(255,255,255,0.08)",
+          background: "#111113",
+          cursor: "pointer",
+          maxHeight: isExpanded ? "none" : "600px",
+          transition: "max-height 0.7s cubic-bezier(0.16, 1, 0.3, 1)",
+          position: "relative"
+        }}
+      >
         <img
           src={src} alt={caption || ""}
           loading="lazy"
           decoding="async"
           style={{ width: "100%", height: "auto", display: "block" }}
         />
+        {!isExpanded && (
+          <div style={{
+            position: "absolute",
+            bottom: 0,
+            left: 0,
+            right: 0,
+            height: 80,
+            background: "linear-gradient(to top, rgba(17,17,19,1), transparent)",
+            pointerEvents: "none",
+            display: "flex",
+            alignItems: "flex-end",
+            justifyContent: "center",
+            paddingBottom: 12
+          }}>
+             <div style={{
+                fontFamily: "DM Mono, monospace", fontSize: 9,
+                color: "rgba(255,255,255,0.3)", letterSpacing: "0.05em"
+             }}>
+                CLICK TO EXPAND
+             </div>
+          </div>
+        )}
       </div>
       {caption && (
         <div style={{
@@ -290,7 +321,15 @@ const hsnSections = [
 ];
 
 const habitSections = [
-  { id: "preview", label: "Preview" },
+  { id: "overview", label: "01 Executive Summary" },
+  { id: "problem", label: "02 The Challenge" },
+  { id: "solution", label: "03 The Ecosystem" },
+  { id: "innovations", label: "04 Social & AI Logic" },
+  { id: "scenarios", label: "05 User Scenarios" },
+  { id: "workflow", label: "06 System Logic" },
+  { id: "user-ui", label: "07 Consumer Experience" },
+  { id: "business-ui", label: "08 Merchant Interface" },
+  { id: "outcomes", label: "09 Retrospective" },
 ];
 
 const erpModules = [
@@ -310,13 +349,15 @@ export default function CaseStudy() {
   const isHsn = slug === "hsn-workflow";
   const isHabit = slug === "lazy-habit-tracker";
   const sections = isHsn ? hsnSections : (isHabit ? habitSections : erpSections);
-  const accent = isHsn ? "#f59e0b" : (isHabit ? "#6d28d9" : "#22c55e");
+  const accent = isHsn ? "#f59e0b" : (isHabit ? "#10b981" : "#22c55e");
 
   const [activeSection, setActiveSection] = useState(sections[0].id);
+  const [isHeroExpanded, setIsHeroExpanded] = useState(false);
   const obsRef = useRef(null);
 
   useEffect(() => {
     setActiveSection(sections[0].id);
+    setIsHeroExpanded(false);
     window.scrollTo({ top: 0 });
     if (obsRef.current) obsRef.current.disconnect();
     obsRef.current = new IntersectionObserver(
@@ -493,17 +534,92 @@ export default function CaseStudy() {
             </div>
           </div>
           {/* Screenshot */}
-          <img
-            src={
-              slug === "hsn-workflow"
-                ? "/case-studies/hsn/hsn-home.jpg"
-                : slug === "lazy-habit-tracker"
-                  ? "/mockups/lazy-habit-tracker.png"
-                  : "/case-studies/erp/Site_Dashboard.jpg"
-            }
-            alt="Hero"
-            style={{ width: "100%", height: "auto", display: "block" }}
-          />
+          <div 
+            onClick={() => setIsHeroExpanded(!isHeroExpanded)}
+            style={{ 
+              cursor: "pointer",
+              maxHeight: isHeroExpanded ? "none" : "520px",
+              overflow: "hidden",
+              transition: "max-height 0.8s cubic-bezier(0.16, 1, 0.3, 1)",
+              position: "relative"
+            }}
+          >
+            <img
+              src={
+                slug === "hsn-workflow"
+                  ? "/case-studies/hsn/hsn-home.jpg"
+                  : slug === "lazy-habit-tracker"
+                    ? "/mockups/lazy-habit-tracker.png"
+                    : "/case-studies/erp/Site_Dashboard.jpg"
+              }
+              alt="Hero"
+              style={{ 
+                width: "100%", 
+                height: "auto", 
+                display: "block",
+                transition: "transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)"
+              }}
+            />
+            
+            {/* View More Overlay */}
+            {!isHeroExpanded && (
+              <div style={{
+                position: "absolute",
+                bottom: 0,
+                left: 0,
+                right: 0,
+                height: 120,
+                background: "linear-gradient(to top, rgba(28,28,30,1), transparent)",
+                display: "flex",
+                alignItems: "flex-end",
+                justifyContent: "center",
+                paddingBottom: 20,
+                pointerEvents: "none"
+              }}>
+                <div style={{
+                  fontFamily: "DM Mono, monospace",
+                  fontSize: 10,
+                  color: "rgba(255,255,255,0.4)",
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                  background: "rgba(255,255,255,0.05)",
+                  padding: "6px 12px",
+                  borderRadius: 999,
+                  border: "1px solid rgba(255,255,255,0.1)",
+                  backdropFilter: "blur(4px)"
+                }}>
+                  Click to Expand
+                </div>
+              </div>
+            )}
+            
+            {/* Click to Collapse Hint */}
+            {isHeroExpanded && (
+              <div style={{
+                position: "sticky",
+                bottom: 20,
+                left: "50%",
+                transform: "translateX(-50%)",
+                zIndex: 10,
+                pointerEvents: "none"
+              }}>
+                <div style={{
+                  fontFamily: "DM Mono, monospace",
+                  fontSize: 10,
+                  color: "rgba(255,255,255,0.6)",
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                  background: "rgba(0,0,0,0.6)",
+                  padding: "6px 12px",
+                  borderRadius: 999,
+                  border: "1px solid rgba(255,255,255,0.2)",
+                  backdropFilter: "blur(8px)"
+                }}>
+                  Click to Collapse
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </motion.div>
 
@@ -653,20 +769,233 @@ export default function CaseStudy() {
               </motion.section>
             </>
           ) : isHabit ? (
-            /* ━━━━━━━━━━━━━━━━━━━━━ HABIT TRACKER CONTENT (SIMPLIFIED) ━━━━━━━━━━━━━━━━━━━━━ */
+            /* ━━━━━━━━━━━━━━━━━━━━━ HABIT TRACKER CONTENT ━━━━━━━━━━━━━━━━━━━━━ */
             <>
-              <motion.section
-                id="preview"
-                style={sec}
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              >
-                <p style={eyebrow}>01 — Preview</p>
+              <motion.section id="overview" style={sec} initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+                <p style={eyebrow}>01 — Executive Summary</p>
                 <AccentBar />
-                <h2 style={h2}>Research and design are done. Project is currently in development.</h2>
-                <p style={body}>The "Lazy" approach focuses on the <span style={S}>Minimum Viable Habit (MVH)</span> — making habits so small they are "too easy to fail." I have completed the final <span style={S}>research and high-fidelity design phases</span>, and the project is currently in <span style={S}>active development</span>.</p>
-                <p style={body}>The full case study and documentation will be uploaded as soon as the development phase is complete. Stay tuned for the release.</p>
+                <h2 style={h2}>Habitly: Bridging the gap between behavioral intent and tangible rewards.</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mt-12">
+                  <div className="space-y-8">
+                    <div>
+                      <p style={{ ...eyebrow, fontSize: 10, color: "rgba(255,255,255,0.2)" }}>The Role</p>
+                      <p style={{ ...body, color: "rgba(255,255,255,0.8)", marginBottom: 0 }}>Lead Product Designer — Research, System Architecture, UI/UX, & React Native Development.</p>
+                    </div>
+                    <div>
+                      <p style={{ ...eyebrow, fontSize: 10, color: "rgba(255,255,255,0.2)" }}>The Mission</p>
+                      <p style={{ ...body, color: "rgba(255,255,255,0.8)", marginBottom: 0 }}>To reduce the high friction of habit formation by introducing AI-driven clarity and a real-world B2B reward ecosystem.</p>
+                    </div>
+                  </div>
+                  <div className="space-y-6">
+                    <p style={{ ...eyebrow, fontSize: 10, color: "rgba(255,255,255,0.2)" }}>Impact Overview</p>
+                    <p style={body}>Habitly solves the "abandonment problem" common in tracking apps. By integrating <span style={S}>Claude AI</span> to refine goals and local <span style={S}>Merchant Rewards</span> to incentivize performance, we turn internal discipline into external value.</p>
+                  </div>
+                </div>
+              </motion.section>
+
+              <motion.section id="problem" style={sec} variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}>
+                <p style={eyebrow}>02 — The Challenge</p>
+                <AccentBar />
+                <h2 style={h2}>The "Blank Canvas" Anxiety & The Retention Gap.</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                  <div>
+                    <h3 style={{ fontSize: 16, fontWeight: 600, color: "rgba(255,255,255,0.9)", marginBottom: 12 }}>The Consumer Pain</h3>
+                    <p style={body}>Users often start with vague goals like "get fit." Without immediate structure, the friction of defining *how* to get fit leads to early abandonment. Furthermore, digital "gold stars" lose their dopamine hit after 7 days.</p>
+                  </div>
+                  <div>
+                    <h3 style={{ fontSize: 16, fontWeight: 600, color: "rgba(255,255,255,0.9)", marginBottom: 12 }}>The Merchant Pain</h3>
+                    <p style={body}>Local businesses struggle to find high-intent, disciplined customers. Traditional advertising is broad and low-yield. They lack a way to reward positive behavioral traits in their community.</p>
+                  </div>
+                </div>
+                <Callout eyebrow="Problem Statement" text="How might we create a symbiotic ecosystem where a user's personal growth directly fuels local business engagement?" />
+              </motion.section>
+
+              <motion.section id="solution" style={sec} variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}>
+                <p style={eyebrow}>03 — The Ecosystem</p>
+                <AccentBar />
+                <h2 style={h2}>A dual-loop solution for sustainable growth.</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mt-8">
+                  <div style={{ padding: 24, borderRadius: 16, background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)" }}>
+                    <h4 style={{ color: accent, fontSize: 13, fontFamily: "DM Mono, monospace", marginBottom: 10 }}>LOOP A: CONSUMER RETENTION</h4>
+                    <ul className="space-y-4">
+                      <li style={body}><span style={S}>AI Expansion:</span> Claude API turns vague intents into clear, time-blocked tasks.</li>
+                      <li style={body}><span style={S}>Smart Stacking:</span> Habits are slotted into Afternoon/Evening blocks, not rigid timestamps.</li>
+                      <li style={body}><span style={S}>Strike Logic:</span> Gamified streaks that "unlock" real-world value.</li>
+                    </ul>
+                  </div>
+                  <div style={{ padding: 24, borderRadius: 16, background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)" }}>
+                    <h4 style={{ color: "#f59e0b", fontSize: 13, fontFamily: "DM Mono, monospace", marginBottom: 10 }}>LOOP B: MERCHANT UTILITY</h4>
+                    <ul className="space-y-4">
+                      <li style={body}><span style={S}>Direct Targeting:</span> Push offers to users with 10+ day streaks (high-intent).</li>
+                      <li style={body}><span style={S}>QR Validation:</span> Instant, physical endpoint for the reward loop.</li>
+                      <li style={body}><span style={S}>Engagement Analytics:</span> Track how many "disciplined users" visit the store.</li>
+                    </ul>
+                  </div>
+                </div>
+              </motion.section>
+
+              <motion.section id="innovations" style={sec} variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}>
+                <p style={eyebrow}>04 — Social & AI Logic</p>
+                <AccentBar />
+                <h2 style={h2}>Behavioral nuances for the modern user.</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                  <div style={{ padding: 24, borderRadius: 16, background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 14 }}>
+                      <div style={{ width: 10, height: 10, borderRadius: "50%", background: accent, filter: "glow(2px)" }} />
+                      <h4 style={{ color: "white", fontSize: 16, fontWeight: 600 }}>Ghost Mode</h4>
+                    </div>
+                    <p style={body}>Designed for the <span style={S}>introverted achiever</span>. Users can toggle Ghost Mode to maintain their privacy, disappearing from global and friend leaderboards while still tracking their personal streaks and earning rewards.</p>
+                  </div>
+                  <div style={{ padding: 24, borderRadius: 16, background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 14 }}>
+                      <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#f59e0b" }} />
+                      <h4 style={{ color: "white", fontSize: 16, fontWeight: 600 }}>Sassy Mode</h4>
+                    </div>
+                    <p style={body}>AI with an attitude. Using <span style={S}>Claude AI</span>, the app converts standard task descriptions into witty, sassy, or funny sentences. This "adult engagement" layer makes routine alerts more human and entertaining.</p>
+                  </div>
+                </div>
+              </motion.section>
+
+              <motion.section id="scenarios" style={sec} variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}>
+                <p style={eyebrow}>05 — User Scenarios</p>
+                <AccentBar />
+                <h2 style={h2}>The journey from discipline to delight.</h2>
+                <div className="space-y-12 mt-10">
+                  <div className="border-l-2 border-white/5 pl-8 py-2">
+                    <p style={{ ...eyebrow, fontSize: 10 }}>PATH A: THE CONSUMER</p>
+                    <h4 style={{ fontSize: 18, color: "rgba(255,255,255,0.9)", margin: "8px 0" }}>"I want my daily routine to pay for my morning coffee."</h4>
+                    <p style={body}>User sets up a "Morning Routine" stack. They swipe to complete tasks (meditate, water, exercise) and gain <span style={S}>Habit Points</span>. These points are then redeemed for a cafe coupon. By maintaining their streak, they stay on top of the leaderboard against friends—unless they go Ghost.</p>
+                  </div>
+                  <div className="border-l-2 border-white/5 pl-8 py-2">
+                    <p style={{ ...eyebrow, fontSize: 10 }}>PATH B: THE BUSINESS</p>
+                    <h4 style={{ fontSize: 18, color: "rgba(255,255,255,0.9)", margin: "8px 0" }}>"I want to attract the most disciplined locals."</h4>
+                    <p style={body}>A local gym owner creates a profile and pushes a "Free Protein Shake" coupon. They manage their inventory through the <span style={S}>Merchant Dashboard</span> and use the built-in scanner to validate user coupons instantly when they walk in.</p>
+                  </div>
+                </div>
+              </motion.section>
+
+              <motion.section id="workflow" style={sec} variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}>
+                <p style={eyebrow}>06 — System Logic</p>
+                <AccentBar />
+                <h2 style={h2}>Mapping the dual-path architecture.</h2>
+                
+                <div className="space-y-10 mt-10">
+                  <DiagramBox caption="User Workflow — From Routine Setup to Reward Redemption">
+                    <svg width="100%" viewBox="0 0 680 180" fill="none">
+                      <defs>
+                        <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0L10 5L0 10Z" fill="rgba(255,255,255,0.2)" /></marker>
+                      </defs>
+                      <path d="M 60 90 L 620 90" stroke="rgba(255,255,255,0.05)" strokeDasharray="4 4" />
+                      {[
+                        { x: 80, l: "Onboard", s: "Account Create" },
+                        { x: 200, l: "Setup", s: "Task & Routine" },
+                        { x: 320, l: "Execute", s: "Home Timeline" },
+                        { x: 440, l: "Earn", s: "Habit Points" },
+                        { x: 560, l: "Redeem", s: "Buy Coupons" }
+                      ].map((n, i) => (
+                        <g key={n.l}>
+                          <circle cx={n.x} cy="90" r="14" fill="#0f0f0d" stroke={accent} strokeWidth="1" />
+                          <text x={n.x} y="130" textAnchor="middle" style={{ fill: "white", fontSize: 11, fontWeight: 600 }}>{n.l}</text>
+                          <text x={n.x} y="146" textAnchor="middle" style={{ fill: "rgba(255,255,255,0.3)", fontSize: 9 }}>{n.s}</text>
+                          {i < 4 && <line x1={n.x + 14} y1="90" x2={n.x + 106} y2="90" stroke="rgba(255,255,255,0.15)" markerEnd="url(#arrow)" />}
+                        </g>
+                      ))}
+                    </svg>
+                  </DiagramBox>
+
+                  <DiagramBox caption="Business Workflow — From Profile Setup to Coupon Validation">
+                    <svg width="100%" viewBox="0 0 680 180" fill="none">
+                      <path d="M 60 90 L 620 90" stroke="rgba(255,255,255,0.05)" strokeDasharray="4 4" />
+                      {[
+                        { x: 120, l: "Business Onboard", s: "Profile Creation" },
+                        { x: 340, l: "Coupon Mgmt", s: "Create & Track" },
+                        { x: 560, l: "Redemption", s: "Scan QR Code" }
+                      ].map((n, i) => (
+                        <g key={n.l}>
+                          <circle cx={n.x} cy="90" r="14" fill="#0f0f0d" stroke="#f59e0b" strokeWidth="1" />
+                          <text x={n.x} y="130" textAnchor="middle" style={{ fill: "white", fontSize: 11, fontWeight: 600 }}>{n.l}</text>
+                          <text x={n.x} y="146" textAnchor="middle" style={{ fill: "rgba(255,255,255,0.3)", fontSize: 9 }}>{n.s}</text>
+                          {i < 2 && <line x1={n.x + 14} y1="90" x2={n.x + 206} y2="90" stroke="rgba(255,255,255,0.15)" markerEnd="url(#arrow)" />}
+                        </g>
+                      ))}
+                    </svg>
+                  </DiagramBox>
+                </div>
+              </motion.section>
+
+              <motion.section id="user-ui" style={sec} variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}>
+                <p style={eyebrow}>07 — User Experience</p>
+                <AccentBar />
+                <h2 style={h2}>Consumer Interface Design.</h2>
+                <p style={body}>Focusing on <span style={S}>Low Friction</span>. Every interaction—from routine setup to point redemption—is designed to be effortless.</p>
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 mt-8">
+                  {[
+                    ["onbaording 1.jpg", "Onboarding 01"],
+                    ["onbaording 2.png", "Onboarding 02"],
+                    ["onbaording 3.jpg", "Onboarding 03"],
+                    ["Login.png.jpg", "Auth Screen"],
+                    ["Taskpage.png", "Main Dashboard"],
+                    ["add task.png", "Add Habit"],
+                    ["Leaderboard.jpg", "Social Rank"],
+                    ["History.jpg", "Progress Log"]
+                  ].map(([img, cap]) => (
+                    <div key={img} className="group relative">
+                      <div className="aspect-[9/19] rounded-xl overflow-hidden border border-white/10 bg-white/5">
+                        <img 
+                          src={`/case-studies/habitly/${img}`} 
+                          alt={cap}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        />
+                      </div>
+                      <p className="mt-2 text-[10px] font-mono text-white/30 text-center uppercase tracking-wider">{cap}</p>
+                    </div>
+                  ))}
+                </div>
+              </motion.section>
+
+              <motion.section id="business-ui" style={sec} variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}>
+                <p style={eyebrow}>08 — Merchant Experience</p>
+                <AccentBar />
+                <h2 style={h2}>Business Interface Design.</h2>
+                <p style={body}>Focusing on <span style={S}>Utility & Speed</span>. Merchants manage their presence and validate rewards in real-time.</p>
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 mt-8">
+                  {[
+                    ["setupstore.png", "Store Setup"],
+                    ["Business select account.jpg", "Account Select"],
+                    ["Business Dashboard.png", "Admin Panel"],
+                    ["Business copon.png", "Offer Creation"],
+                    ["Modal.jpg", "Coupon Modal"],
+                    ["Verify Redemption.jpg", "QR Validation"],
+                    ["Business Forget Password.png", "Recovery 01"],
+                    ["Business Forget Password-1.png", "Recovery 02"]
+                  ].map(([img, cap]) => (
+                    <div key={img} className="group relative">
+                      <div className="aspect-[9/19] rounded-xl overflow-hidden border border-white/10 bg-white/5">
+                        <img 
+                          src={`/case-studies/habitly/${img}`} 
+                          alt={cap}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        />
+                      </div>
+                      <p className="mt-2 text-[10px] font-mono text-white/30 text-center uppercase tracking-wider">{cap}</p>
+                    </div>
+                  ))}
+                </div>
+              </motion.section>
+
+              <motion.section id="outcomes" style={sec} variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}>
+                <p style={eyebrow}>09 — Retrospective</p>
+                <AccentBar />
+                <h2 style={h2}>Lessons in behavioral gamification.</h2>
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                  {[["2", "User Loops"], ["19+", "Hi-Fi Screens"], ["AI", "Claude Powered"], ["Real", "Rewards"]].map(([n, l]) => (
+                    <div key={l} className="p-5 sm:p-6 rounded-xl text-center bg-white/5 border border-white/10">
+                      <div style={{ color: accent }} className="text-3xl sm:text-4xl font-bold tracking-tight mb-1.5">{n}</div>
+                      <div className="font-mono text-[9px] sm:text-[10px] text-white/30 tracking-widest uppercase">{l}</div>
+                    </div>
+                  ))}
+                </div>
+                <p style={body}>Habitly demonstrates that Personal Growth doesn't have to be solitary. By combining privacy (Ghost Mode), humor (Sassy Mode), and physical rewards, we built an ecosystem that people actually look forward to using every morning.</p>
               </motion.section>
             </>
           ) : (

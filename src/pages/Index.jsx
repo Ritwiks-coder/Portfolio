@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useLocation } from "react-router-dom";
 import ProjectCard from '../components/ProjectCard';
 
-function InfoContent() {
+function InfoContent({ mousePos }) {
 
   const experience = [
     {
@@ -37,14 +37,18 @@ function InfoContent() {
       issuer: "Felix Institute",
       icon: "◈",
       url: "https://www.credential.net/fcacaeee-68ec-44b7-b943-215aca6a4406#acc.eA23jgaJ",
+      image: "/certificates/Felix IT UI UX certificate.png"
     },
     {
       name: "Google UX Design Certificate",
       issuer: "Google · Coursera",
       icon: "◉",
       url: "https://coursera.org/share/b6cce69bff7e265e61bbe3f5b009f031",
+      image: "/certificates/Google certificate.png"
     },
   ];
+
+  const [hoveredCert, setHoveredCert] = useState(null);
 
   const skills = [
     {
@@ -250,7 +254,9 @@ function InfoContent() {
           Certifications
         </p>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+        <div
+          style={{ display: "flex", flexDirection: "column", gap: 8 }}
+        >
           {certifications.map((cert, i) => (
             <motion.a
               key={i}
@@ -267,14 +273,17 @@ function InfoContent() {
                 border: "1px solid rgba(255,255,255,0.07)",
                 textDecoration: "none",
                 transition: "background 0.2s, border-color 0.2s",
+                position: "relative",
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.background = "rgba(255,255,255,0.06)";
                 e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)";
+                setHoveredCert(cert);
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.background = "rgba(255,255,255,0.03)";
                 e.currentTarget.style.borderColor = "rgba(255,255,255,0.07)";
+                setHoveredCert(null);
               }}
             >
               <div style={{
@@ -306,6 +315,61 @@ function InfoContent() {
             </motion.a>
           ))}
         </div>
+
+        {/* Floating Certificate Preview */}
+        <AnimatePresence>
+          {hoveredCert && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{
+                opacity: 1,
+                scale: 1,
+                x: Math.min(mousePos.x + 20, window.innerWidth - 300),
+                y: Math.min(mousePos.y + 20, window.innerHeight - 240), 
+              }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300, mass: 0.6 }}
+              style={{
+                position: "fixed",
+                top: 0,
+                left: 0,
+                width: 280,
+                pointerEvents: "none",
+                zIndex: 100,
+                borderRadius: 12,
+                overflow: "hidden",
+                border: "1px solid rgba(255,255,255,0.15)",
+                boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)",
+                background: "rgba(20,20,18,0.9)",
+                backdropFilter: "blur(12px)",
+                transformOrigin: "center bottom",
+              }}
+            >
+              <motion.img
+                src={hoveredCert.image}
+                alt={hoveredCert.name}
+                style={{
+                  width: "100%",
+                  height: "auto",
+                  display: "block",
+                }}
+                initial={{ filter: "brightness(0.5)" }}
+                animate={{ filter: "brightness(1)" }}
+              />
+              <div style={{
+                padding: "10px 14px",
+                background: "linear-gradient(to top, rgba(0,0,0,0.8), transparent)",
+                position: "absolute",
+                bottom: 0,
+                left: 0,
+                right: 0,
+              }}>
+                <div style={{ fontSize: 11, color: "white", fontWeight: 500 }}>{hoveredCert.name}</div>
+                <div style={{ fontSize: 9, color: "rgba(255,255,255,0.5)" }}>{hoveredCert.issuer}</div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
       {/* ── Skills ──────────────────────────────────────────── */}
@@ -357,7 +421,7 @@ function InfoContent() {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
         {[
           ["2", "Projects shipped"],
-          ["1yr", "Experience"],
+          ["1.5yr", "Experience"],
           ["2", "Certifications"],
         ].map(([num, label]) => (
           <div key={label} style={{
@@ -391,8 +455,18 @@ function InfoContent() {
 
 export default function Home() {
   const [heroHovered, setHeroHovered] = useState(false);
+  const [hoveredProject, setHoveredProject] = useState(null);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const location = useLocation();
   const activeTab = location.pathname === "/info" ? "info" : "work";
+
+  const handleMouseMove = (e) => {
+    setMousePos({ x: e.clientX, y: e.clientY });
+  };
+
+  useEffect(() => {
+    setHoveredProject(null);
+  }, [activeTab]);
 
   const projects = [
     {
@@ -400,6 +474,9 @@ export default function Home() {
       company: "Client, '24",
       desc: "End-to-end ERP system for a sugar manufacturing company.",
       slug: "enterprise-erp",
+      about: "A comprehensive enterprise solution designed to unify siloed factory operations into a single digital ecosystem.",
+      problemStatement: "Six departments operating in silos with zero shared data, leading to massive inefficiencies and paper-heavy workflows.",
+      solution: "Designed 10 role-specific dashboards with a shared design system, centralizing all master data and approvals.",
       glowTop: "rgba(6, 95, 70, 0.60)",
       glowBorder: "rgba(52, 211, 153, 0.45)",
       glowBlob: "rgba(16, 185, 129, 0.25)",
@@ -410,16 +487,22 @@ export default function Home() {
       company: "PCS, '23",
       desc: "Guided 5-step HSN classification tool for importers and exporters.",
       slug: "hsn-workflow",
+      about: "A 5-step guided classification tool that simplifies the complex legal process of finding HSN codes for international trade.",
+      problemStatement: "Importers manually searching thousands of codes in PDFs, often resulting in expensive legal penalties for wrong declarations.",
+      solution: "Created a sequential wizard that filters the HSN hierarchy into human-readable steps with integrated duty info.",
       glowTop: "rgba(223, 136, 13, 0.7)",
       glowBorder: "rgba(235, 153, 10, 0.4)",
       glowBlob: "rgba(236, 181, 19, 0.35)",
       mockupSrc: "/mockups/hsn-workflow.png",
     },
     {
-      title: "Lazy Habit Tracker",
+      title: "Habitly — AI & Reward-Led Habits",
       company: "Personal, '24",
-      desc: "Reducing friction in daily habit formation through behavioral design.",
+      desc: "Reducing habit friction with Claude AI and incentivizing consistency through merchant-led rewards.",
       slug: "lazy-habit-tracker",
+      about: "A behavioral habit tracker that uses AI to break down goals and local business rewards to sustain long-term discipline.",
+      problemStatement: "Most habit apps fail because they lack immediate external value and have high friction for initial goal setting.",
+      solution: "Integrated Claude AI for smart goal expansion and a B2B reward loop that turns streaks into real-world value.",
       glowTop: "rgba(16, 185, 129, 0.55)",   // emerald-green
       glowBorder: "rgba(52, 211, 153, 0.45)",
       glowBlob: "rgba(16, 185, 129, 0.30)",
@@ -430,7 +513,10 @@ export default function Home() {
 
 
   return (
-    <div style={{ backgroundColor: '#0f0f0d', minHeight: '100vh', width: '100%' }}>
+    <div 
+      style={{ backgroundColor: '#0f0f0d', minHeight: '100vh', width: '100%' }}
+      onMouseMove={handleMouseMove}
+    >
       <div
         className="responsive-container"
         style={{
@@ -599,13 +685,143 @@ export default function Home() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.55, delay: 0.15 + index * 0.10, ease: [0.16, 1, 0.3, 1] }}
                   >
-                    <ProjectCard {...project} />
+                    <ProjectCard 
+                      {...project} 
+                      onHoverEnter={() => setHoveredProject(project)}
+                      onHoverLeave={() => setHoveredProject(null)}
+                    />
                   </motion.div>
                 ))}
               </div>
             </motion.div>
           ) : (
-            <InfoContent />
+            <InfoContent mousePos={mousePos} />
+          )}
+        </AnimatePresence>
+
+        {/* Floating Project Info Card */}
+        <AnimatePresence>
+          {hoveredProject && activeTab === 'work' && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 10 }}
+              animate={{
+                opacity: 1,
+                scale: 1,
+                x: Math.min(mousePos.x + 20, window.innerWidth - 340),
+                y: Math.min(mousePos.y + 20, window.innerHeight - 340),
+              }}
+              exit={{ opacity: 0, scale: 0.9, y: 10 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300, mass: 0.5 }}
+              style={{
+                position: "fixed",
+                top: 0,
+                left: 0,
+                width: 320,
+                pointerEvents: "none",
+                zIndex: 1000,
+                borderRadius: 16,
+                padding: "20px",
+                background: "rgba(15, 15, 13, 0.85)",
+                backdropFilter: "blur(16px)",
+                border: `1px solid ${hoveredProject.glowBorder}`,
+                boxShadow: `0 20px 50px rgba(0,0,0,0.5), 0 0 20px ${hoveredProject.glowBorder}20`,
+              }}
+            >
+              <motion.div 
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.1 }}
+                style={{ marginBottom: 16 }}
+              >
+                <div style={{ 
+                  fontFamily: "DM Mono, monospace", 
+                  fontSize: 10, 
+                  color: hoveredProject.glowBorder, 
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                  marginBottom: 4
+                }}>
+                  What is this project about?
+                </div>
+                <div style={{ 
+                  fontSize: 13, 
+                  color: "rgba(255,255,255,0.85)", 
+                  lineHeight: 1.5,
+                  fontFamily: "DM Sans, sans-serif"
+                }}>
+                  {hoveredProject.about}
+                </div>
+              </motion.div>
+
+              <motion.div 
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.2 }}
+                style={{ marginBottom: 16 }}
+              >
+                <div style={{ 
+                  fontFamily: "DM Mono, monospace", 
+                  fontSize: 10, 
+                  color: hoveredProject.glowBorder, 
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                  marginBottom: 4
+                }}>
+                  Problem Statement
+                </div>
+                <div style={{ 
+                  fontSize: 13, 
+                  color: "rgba(255,255,255,0.6)", 
+                  lineHeight: 1.5,
+                  fontFamily: "DM Sans, sans-serif"
+                }}>
+                  {hoveredProject.problemStatement}
+                </div>
+              </motion.div>
+
+              <motion.div 
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.3 }}
+                style={{ marginBottom: 20 }}
+              >
+                <div style={{ 
+                  fontFamily: "DM Mono, monospace", 
+                  fontSize: 10, 
+                  color: hoveredProject.glowBorder, 
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                  marginBottom: 4
+                }}>
+                  The Solution
+                </div>
+                <div style={{ 
+                  fontSize: 13, 
+                  color: "rgba(255,255,255,0.6)", 
+                  lineHeight: 1.5,
+                  fontFamily: "DM Sans, sans-serif"
+                }}>
+                  {hoveredProject.solution}
+                </div>
+              </motion.div>
+
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4 }}
+                style={{ 
+                  textAlign: "center",
+                  paddingTop: 12,
+                  borderTop: "1px solid rgba(255,255,255,0.08)",
+                  fontFamily: "DM Mono, monospace",
+                  fontSize: 10,
+                  color: "rgba(255,255,255,0.3)",
+                  letterSpacing: "0.05em"
+                }}
+              >
+                Click to view case study →
+              </motion.div>
+            </motion.div>
           )}
         </AnimatePresence>
 
