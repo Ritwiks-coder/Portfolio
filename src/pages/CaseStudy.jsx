@@ -133,25 +133,28 @@ function Callout({ eyebrow, text }) {
     <motion.div
       variants={fadeUp} initial="hidden" whileInView="show"
       viewport={{ once: true, margin: "-40px" }}
-      className="my-8 md:my-12 px-5 py-6 md:px-10 md:py-9"
       style={{
-        borderRadius: 12,
-        background: "rgba(255,255,255,0.03)",
+        position: "relative", margin: "40px 0",
+        borderRadius: 16, overflow: "hidden",
+        background: "linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01))",
         border: "1px solid rgba(255,255,255,0.08)",
-        textAlign: "center",
+        padding: "40px 48px", textAlign: "center",
       }}
     >
+      <div style={{ position: "absolute", top: 0, left: "15%", right: "15%", height: 1, background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)" }} />
       <div style={{
-        fontFamily: "DM Mono, monospace", fontSize: 10,
-        letterSpacing: "0.16em", textTransform: "uppercase",
-        color: "rgba(255,255,255,0.28)", marginBottom: 16,
+        display: "inline-block", fontFamily: "DM Mono, monospace", fontSize: 9,
+        letterSpacing: "0.2em", textTransform: "uppercase",
+        color: "rgba(255,255,255,0.4)", marginBottom: 20,
+        padding: "4px 14px", borderRadius: 999,
+        border: "1px solid rgba(255,255,255,0.1)", background: "rgba(255,255,255,0.05)",
       }}>
         {eyebrow}
       </div>
       <p style={{
-        fontSize: "clamp(16px, 4vw, 22px)", fontWeight: 400,
-        color: "rgba(255,255,255,0.85)", lineHeight: 1.6,
-        letterSpacing: "-0.01em", maxWidth: 680, margin: "0 auto",
+        fontSize: "clamp(15px, 3.5vw, 21px)", fontWeight: 400,
+        color: "rgba(255,255,255,0.82)", lineHeight: 1.65,
+        letterSpacing: "-0.015em", maxWidth: 660, margin: "0 auto",
         fontFamily: "DM Sans, sans-serif",
       }}>
         {text}
@@ -162,6 +165,129 @@ function Callout({ eyebrow, text }) {
 
 // ── Inline text helpers ───────────────────────────────────────────────────────
 const S = { color: "rgba(255,255,255,0.82)", fontWeight: 500 };
+
+// ── Persona Card — Premium redesign ───────────────────────────────────────────
+function PersonaCard({ name, role, bio, painPoints, goals, accent: cardAccent = "#6366f1" }) {
+  const initials = name.split(" ").map(w => w[0]).join("");
+  return (
+    <motion.div
+      variants={fadeUp} initial="hidden" whileInView="show"
+      viewport={{ once: true }}
+      style={{
+        position: "relative", marginBottom: 28, borderRadius: 20, overflow: "hidden",
+        background: "linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%)",
+        border: "1px solid rgba(255,255,255,0.08)",
+        backdropFilter: "blur(20px)",
+      }}
+    >
+      {/* Top accent glow strip */}
+      <div style={{ height: 2, background: `linear-gradient(90deg, ${cardAccent}88, transparent)` }} />
+      <div style={{ padding: "28px 32px" }}>
+        <div style={{ display: "flex", gap: 20, alignItems: "flex-start", marginBottom: 24 }}>
+          {/* Avatar */}
+          <div style={{
+            width: 56, height: 56, borderRadius: "50%", flexShrink: 0,
+            background: `linear-gradient(135deg, ${cardAccent}33, ${cardAccent}11)`,
+            border: `1.5px solid ${cardAccent}44`,
+            display: "flex", alignItems: "center", justifyContent: "center",
+            fontSize: 18, fontWeight: 700, color: cardAccent, fontFamily: "DM Sans, sans-serif",
+            boxShadow: `0 0 24px ${cardAccent}22`,
+          }}>
+            {initials}
+          </div>
+          <div style={{ flex: 1 }}>
+            <h4 style={{ fontSize: 17, fontWeight: 700, color: "rgba(255,255,255,0.92)", fontFamily: "DM Sans, sans-serif", marginBottom: 3 }}>{name}</h4>
+            <p style={{ fontSize: 10, fontFamily: "DM Mono, monospace", color: cardAccent, letterSpacing: "0.12em", textTransform: "uppercase", opacity: 0.8 }}>{role}</p>
+          </div>
+          {/* Quote icon */}
+          <div style={{ color: "rgba(255,255,255,0.06)", fontSize: 48, fontFamily: "Georgia, serif", lineHeight: 1, marginTop: -8, userSelect: "none" }}>&#8220;</div>
+        </div>
+        {/* Bio */}
+        <p style={{
+          fontSize: 14, color: "rgba(255,255,255,0.55)", lineHeight: 1.8,
+          fontFamily: "DM Sans, sans-serif", fontStyle: "italic",
+          borderLeft: `2px solid ${cardAccent}44`, paddingLeft: 16, marginBottom: 28,
+        }}>{bio}</p>
+        {/* Pain / Goals grid */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
+          <div style={{ padding: "16px 18px", borderRadius: 12, background: "rgba(239,68,68,0.05)", border: "1px solid rgba(239,68,68,0.12)" }}>
+            <p style={{ fontSize: 9, fontFamily: "DM Mono, monospace", color: "#f87171", letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: 12, opacity: 0.8 }}>🔴 Pain Points</p>
+            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 8 }}>
+              {painPoints.map((p, i) => (
+                <li key={i} style={{ fontSize: 12, color: "rgba(255,255,255,0.55)", fontFamily: "DM Sans, sans-serif", display: "flex", gap: 8, alignItems: "flex-start", lineHeight: 1.5 }}>
+                  <span style={{ color: "#f87171", flexShrink: 0, marginTop: 1, fontSize: 10 }}>–</span>{p}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div style={{ padding: "16px 18px", borderRadius: 12, background: "rgba(34,197,94,0.05)", border: "1px solid rgba(34,197,94,0.12)" }}>
+            <p style={{ fontSize: 9, fontFamily: "DM Mono, monospace", color: "#4ade80", letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: 12, opacity: 0.8 }}>🟢 Goals</p>
+            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 8 }}>
+              {goals.map((g, i) => (
+                <li key={i} style={{ fontSize: 12, color: "rgba(255,255,255,0.55)", fontFamily: "DM Sans, sans-serif", display: "flex", gap: 8, alignItems: "flex-start", lineHeight: 1.5 }}>
+                  <span style={{ color: "#4ade80", flexShrink: 0, marginTop: 1, fontSize: 10 }}>+</span>{g}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+// ── Comparison Table — Premium redesign ───────────────────────────────────────
+function ComparisonTable({ headers, rows, highlightCol = 3 }) {
+  const checkOrX = (val) => {
+    if (val === true || val === "Yes" || val === "✓") return <span style={{ color: "#4ade80", fontWeight: 700 }}>✓</span>;
+    if (val === false || val === "No" || val === "✗") return <span style={{ color: "#f87171", fontWeight: 700 }}>✗</span>;
+    return val;
+  };
+  return (
+    <motion.div
+      variants={fadeUp} initial="hidden" whileInView="show"
+      viewport={{ once: true }}
+      style={{ marginTop: 32, marginBottom: 8, borderRadius: 16, overflow: "hidden",
+        border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.02)" }}
+    >
+      <div style={{ overflowX: "auto" }}>
+        <table style={{ width: "100%", borderCollapse: "collapse" }}>
+          <thead>
+            <tr style={{ background: "rgba(255,255,255,0.04)" }}>
+              {headers.map((h, i) => (
+                <th key={i} style={{
+                  padding: "14px 20px", textAlign: "left", fontSize: 9,
+                  fontFamily: "DM Mono, monospace", color: i === highlightCol ? "rgba(255,255,255,0.7)" : "rgba(255,255,255,0.28)",
+                  letterSpacing: "0.14em", textTransform: "uppercase",
+                  borderBottom: "1px solid rgba(255,255,255,0.08)",
+                  background: i === highlightCol ? "rgba(255,255,255,0.05)" : "transparent",
+                  fontWeight: i === highlightCol ? 700 : 400,
+                }}>{h}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row, i) => (
+              <tr key={i} style={{ borderBottom: i < rows.length - 1 ? "1px solid rgba(255,255,255,0.04)" : "none" }}>
+                {row.map((cell, j) => (
+                  <td key={j} style={{
+                    padding: "13px 20px", fontSize: 13,
+                    fontFamily: j === 0 ? "DM Mono, monospace" : "DM Sans, sans-serif",
+                    color: j === 0 ? "rgba(255,255,255,0.45)" : j === highlightCol ? "rgba(255,255,255,0.85)" : "rgba(255,255,255,0.5)",
+                    background: j === highlightCol ? "rgba(255,255,255,0.03)" : "transparent",
+                    fontWeight: j === highlightCol ? 500 : 400,
+                    letterSpacing: j === 0 ? "0.04em" : 0,
+                  }}>{checkOrX(cell)}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </motion.div>
+  );
+}
+
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // ERP SVG DIAGRAMS
@@ -203,23 +329,58 @@ function ErpWorkflowDiagram() {
 }
 
 function ErpIaDiagram() {
-  const TH = (c) => ({ fontFamily: "DM Sans, sans-serif", fontSize: 13, fontWeight: 500, fill: c });
-  const TS = (c) => ({ fontFamily: "DM Mono, monospace", fontSize: 11, fill: c });
+  const cx = 340, cy = 190;
+  const modules = [
+    { angle: -90, label: "Sales", sub: "Customers & Deals", fill: "#1a1335", stroke: "#7c3aed", txt: "#c4b5fd" },
+    { angle: -30, label: "Projects", sub: "Sites & Tasks", fill: "#0a1f1e", stroke: "#0d9488", txt: "#5eead4" },
+    { angle: 30, label: "HR", sub: "People & Payroll", fill: "#0c1e31", stroke: "#2563eb", txt: "#93c5fd" },
+    { angle: 90, label: "Workshop", sub: "Ops & Dispatch", fill: "#1a1201", stroke: "#ca8a04", txt: "#fde68a" },
+    { angle: 150, label: "Finance", sub: "POs & Invoices", fill: "#0a1f1e", stroke: "#16a34a", txt: "#86efac" },
+    { angle: 210, label: "Super Admin", sub: "Roles & Perms", fill: "#1a1a20", stroke: "#52525b", txt: "#a1a1aa" },
+  ];
+  const r = 148;
   return (
-    <svg width="100%" viewBox="0 0 680 375">
-      <defs><marker id="ia" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="rgba(255,255,255,0.20)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></marker></defs>
-      <rect x="20" y="20" width="640" height="335" rx="16" fill="#111113" stroke="#27272a" strokeWidth="0.5" />
-      <text style={TH("rgba(255,255,255,0.30)")} x="36" y="46">ERP System — Indiana Sucro-Tech</text>
-      <rect x="40" y="64" width="186" height="56" rx="8" fill="#1a1335" stroke="#7c3aed" strokeWidth="0.5" /><text style={TH("#c4b5fd")} x="133" y="84" textAnchor="middle" dominantBaseline="central">Sales & marketing</text><text style={TS("#8b5cf6")} x="133" y="104" textAnchor="middle" dominantBaseline="central">Customers & deals</text>
-      <rect x="247" y="64" width="186" height="56" rx="8" fill="#0a1f1e" stroke="#0d9488" strokeWidth="0.5" /><text style={TH("#5eead4")} x="340" y="84" textAnchor="middle" dominantBaseline="central">Project management</text><text style={TS("#14b8a6")} x="340" y="104" textAnchor="middle" dominantBaseline="central">Projects & sites</text>
-      <rect x="454" y="64" width="186" height="56" rx="8" fill="#0c1e31" stroke="#2563eb" strokeWidth="0.5" /><text style={TH("#93c5fd")} x="547" y="84" textAnchor="middle" dominantBaseline="central">HR & employees</text><text style={TS("#3b82f6")} x="547" y="104" textAnchor="middle" dominantBaseline="central">People & attendance</text>
-      <rect x="40" y="192" width="186" height="56" rx="8" fill="#0a1f1e" stroke="#0d9488" strokeWidth="0.5" /><text style={TH("#5eead4")} x="133" y="212" textAnchor="middle" dominantBaseline="central">Finance & accounts</text><text style={TS("#14b8a6")} x="133" y="232" textAnchor="middle" dominantBaseline="central">Invoices & POs</text>
-      <rect x="247" y="192" width="186" height="56" rx="8" fill="#0a1f1e" stroke="#0d9488" strokeWidth="0.5" /><text style={TH("#5eead4")} x="340" y="212" textAnchor="middle" dominantBaseline="central">Workshop & ops</text><text style={TS("#14b8a6")} x="340" y="232" textAnchor="middle" dominantBaseline="central">Dispatch & packing</text>
-      <rect x="454" y="192" width="186" height="56" rx="8" fill="#1a1a20" stroke="#52525b" strokeWidth="0.5" /><text style={TH("#a1a1aa")} x="547" y="212" textAnchor="middle" dominantBaseline="central">Super admin</text><text style={TS("#71717a")} x="547" y="232" textAnchor="middle" dominantBaseline="central">Roles & permissions</text>
-      {[133, 340, 547].map(x => <line key={x} x1={x} y1="275" x2={x} y2="248" stroke="rgba(255,255,255,0.18)" strokeWidth="1" markerEnd="url(#ia)" />)}
-      <rect x="40" y="275" width="600" height="60" rx="8" fill="#1c1204" stroke="#d97706" strokeWidth="0.5" />
-      <text style={TH("#fcd34d")} x="340" y="295" textAnchor="middle" dominantBaseline="central">Master data — core of the system</text>
-      <text style={TS("#f59e0b")} x="340" y="318" textAnchor="middle" dominantBaseline="central">Materials · vendors · departments · categories · units of measure</text>
+    <svg width="100%" viewBox="0 0 680 380" style={{ overflow: "visible" }}>
+      <defs>
+        <radialGradient id="hub-glow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#d97706" stopOpacity="0.25" />
+          <stop offset="100%" stopColor="#d97706" stopOpacity="0" />
+        </radialGradient>
+        <filter id="node-glow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        <marker id="ia2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </marker>
+      </defs>
+      {/* Outer ring glow */}
+      <circle cx={cx} cy={cy} r={r + 14} fill="none" stroke="rgba(255,255,255,0.03)" strokeWidth="1" strokeDasharray="4 6" />
+      {/* Spokes */}
+      {modules.map((m, i) => {
+        const rad = (m.angle * Math.PI) / 180;
+        const nx = cx + r * Math.cos(rad), ny = cy + r * Math.sin(rad);
+        const ix = cx + 44 * Math.cos(rad), iy = cy + 44 * Math.sin(rad);
+        return <line key={i} x1={ix} y1={iy} x2={nx - 34 * Math.cos(rad)} y2={ny - 34 * Math.sin(rad)} stroke={m.stroke} strokeWidth="0.8" strokeOpacity="0.4" strokeDasharray="3 4" markerEnd="url(#ia2)" />;
+      })}
+      {/* Hub glow */}
+      <circle cx={cx} cy={cy} r={80} fill="url(#hub-glow)" />
+      {/* Hub node */}
+      <circle cx={cx} cy={cy} r={44} fill="#1c1204" stroke="#d97706" strokeWidth="1.5" filter="url(#node-glow)" />
+      <circle cx={cx} cy={cy} r={38} fill="none" stroke="#d97706" strokeWidth="0.4" strokeOpacity="0.4" />
+      <text x={cx} y={cy - 7} textAnchor="middle" style={{ fontFamily: "DM Sans, sans-serif", fontSize: 13, fontWeight: 700, fill: "#fcd34d" }}>Master</text>
+      <text x={cx} y={cy + 10} textAnchor="middle" style={{ fontFamily: "DM Sans, sans-serif", fontSize: 13, fontWeight: 700, fill: "#fcd34d" }}>Data</text>
+      <text x={cx} y={cy + 26} textAnchor="middle" style={{ fontFamily: "DM Mono, monospace", fontSize: 9, fill: "#f59e0b", opacity: 0.7 }}>FOUNDATION</text>
+      {/* Module nodes */}
+      {modules.map((m, i) => {
+        const rad = (m.angle * Math.PI) / 180;
+        const nx = cx + r * Math.cos(rad), ny = cy + r * Math.sin(rad);
+        return (
+          <g key={i}>
+            <rect x={nx - 54} y={ny - 28} width="108" height="56" rx="10" fill={m.fill} stroke={m.stroke} strokeWidth="1" />
+            <text x={nx} y={ny - 8} textAnchor="middle" style={{ fontFamily: "DM Sans, sans-serif", fontSize: 12, fontWeight: 600, fill: m.txt }}>{m.label}</text>
+            <text x={nx} y={ny + 10} textAnchor="middle" style={{ fontFamily: "DM Mono, monospace", fontSize: 9, fill: m.stroke, opacity: 0.8 }}>{m.sub}</text>
+          </g>
+        );
+      })}
+      <text x={cx} y={370} textAnchor="middle" style={{ fontFamily: "DM Mono, monospace", fontSize: 10, fill: "rgba(255,255,255,0.2)", letterSpacing: "0.1em" }}>ALL MODULES DEPEND ON MASTER DATA</text>
     </svg>
   );
 }
@@ -228,67 +389,92 @@ function ErpIaDiagram() {
 // HSN DIAGRAMS
 // ═══════════════════════════════════════════════════════════════════════════════
 function HsnUserWorkflow() {
-  const TH = (c) => ({ fontFamily: "DM Sans, sans-serif", fontSize: 14, fontWeight: 500, fill: c });
-  const TS = (c) => ({ fontFamily: "DM Mono, monospace", fontSize: 11, fill: c });
-  const A = "rgba(255,255,255,0.30)";
   const steps = [
-    { label: "Search product", sub: "Enter name", fill: "#0c1e31", stroke: "#2563eb", txt: "#93c5fd", x: 40 },
-    { label: "Select section", sub: "21 categories", fill: "#0a1f1e", stroke: "#0d9488", txt: "#5eead4", x: 155 },
-    { label: "Select chapter", sub: "99 chapters", fill: "#0a1f1e", stroke: "#0d9488", txt: "#5eead4", x: 270 },
-    { label: "Select heading", sub: "4-digit code", fill: "#1a1335", stroke: "#7c3aed", txt: "#c4b5fd", x: 385 },
-    { label: "Subheading", sub: "6-digit code", fill: "#1a1335", stroke: "#7c3aed", txt: "#c4b5fd", x: 500 },
+    { n: "01", label: "Search", sub: "Product name", stroke: "#2563eb", txt: "#93c5fd", fill: "#0c1e31" },
+    { n: "02", label: "Section", sub: "21 categories", stroke: "#0d9488", txt: "#5eead4", fill: "#0a1f1e" },
+    { n: "03", label: "Chapter", sub: "99 chapters", stroke: "#7c3aed", txt: "#c4b5fd", fill: "#1a1335" },
+    { n: "04", label: "Heading", sub: "4-digit code", stroke: "#7c3aed", txt: "#c4b5fd", fill: "#1a1335" },
+    { n: "05", label: "Subheading", sub: "6-digit code", stroke: "#f59e0b", txt: "#fde68a", fill: "#1c1204" },
   ];
+  const W = 112, GAP = 24, TOTAL = steps.length * W + (steps.length - 1) * GAP;
+  const startX = (680 - TOTAL) / 2;
   return (
-    <svg width="100%" viewBox="0 0 680 320">
+    <svg width="100%" viewBox="0 0 680 280">
       <defs>
-        <marker id="hs" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke={A} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></marker>
+        <marker id="hs2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </marker>
+        <filter id="step-glow"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
       </defs>
-      {steps.map((s, i) => (
-        <g key={s.label}>
-          <rect x={s.x} y="40" width="108" height="60" rx="8" fill={s.fill} stroke={s.stroke} strokeWidth="0.5" />
-          <text style={TH(s.txt)} x={s.x + 54} y="62" textAnchor="middle" dominantBaseline="central">{s.label}</text>
-          <text style={TS(s.stroke)} x={s.x + 54} y="84" textAnchor="middle" dominantBaseline="central">{s.sub}</text>
-          {i < 4 && <line x1={s.x + 108} y1="70" x2={s.x + 118} y2="70" stroke={A} strokeWidth="1" markerEnd="url(#hs)" />}
+      {/* Connecting path */}
+      <path d={`M ${startX + W} 72 L ${startX + TOTAL - W} 72`} stroke="rgba(255,255,255,0.05)" strokeWidth="1" strokeDasharray="4 6" />
+      {/* Step cards */}
+      {steps.map((s, i) => {
+        const x = startX + i * (W + GAP);
+        return (
+          <g key={s.n}>
+            {i < steps.length - 1 && (
+              <line x1={x + W} y1={72} x2={x + W + GAP} y2={72} stroke="rgba(255,255,255,0.15)" strokeWidth="1" markerEnd="url(#hs2)" />
+            )}
+            <rect x={x} y={30} width={W} height={84} rx={12} fill={s.fill} stroke={s.stroke} strokeWidth={1} />
+            <text x={x + W / 2} y={50} textAnchor="middle" style={{ fontFamily: "DM Mono, monospace", fontSize: 9, fill: s.stroke, opacity: 0.8, letterSpacing: "0.08em" }}>{s.n}</text>
+            <text x={x + W / 2} y={72} textAnchor="middle" style={{ fontFamily: "DM Sans, sans-serif", fontSize: 13, fontWeight: 700, fill: s.txt }}>{s.label}</text>
+            <text x={x + W / 2} y={92} textAnchor="middle" style={{ fontFamily: "DM Mono, monospace", fontSize: 9, fill: s.stroke, opacity: 0.7 }}>{s.sub}</text>
+          </g>
+        );
+      })}
+      {/* Arrow down */}
+      <line x1={340} y1={114} x2={340} y2={148} stroke="rgba(255,255,255,0.2)" strokeWidth="1" markerEnd="url(#hs2)" />
+      {/* Result node */}
+      <rect x={80} y={155} width={520} height={72} rx={14} fill="#0a1e0e" stroke="#16a34a" strokeWidth={1.5} filter="url(#step-glow)" />
+      <text x={340} y={181} textAnchor="middle" style={{ fontFamily: "DM Sans, sans-serif", fontSize: 14, fontWeight: 700, fill: "#86efac" }}>Final HSN Code — 8 Digits</text>
+      <text x={340} y={203} textAnchor="middle" style={{ fontFamily: "DM Mono, monospace", fontSize: 10, fill: "#4ade80", opacity: 0.7 }}>GST Rate · Customs Duty · BIS · Case Law · Notes</text>
+      {/* Bottom actions */}
+      {[["Bulk Upload", "#f59e0b", "#1c1204"], ["Export Results", "#71717a", "#1a1a20"], ["View Benefits", "#71717a", "#1a1a20"]].map(([l, s, f], i) => (
+        <g key={l}>
+          <rect x={80 + i * 180} y={245} width={160} height={28} rx={7} fill={f} stroke={s} strokeWidth="0.8" />
+          <text x={80 + i * 180 + 80} y={260} textAnchor="middle" style={{ fontFamily: "DM Sans, sans-serif", fontSize: 11, fill: s }}>{l}</text>
         </g>
       ))}
-      <line x1="554" y1="100" x2="554" y2="148" stroke={A} strokeWidth="1" markerEnd="url(#hs)" />
-      <path d="M 554 148 L 554 168 L 94 168 L 94 180" fill="none" stroke={A} strokeWidth="1" markerEnd="url(#hs)" />
-      <rect x="40" y="180" width="600" height="70" rx="10" fill="#0a1e0e" stroke="#16a34a" strokeWidth="0.5" />
-      <text style={TH("#86efac")} x="340" y="206" textAnchor="middle" dominantBaseline="central">Final HSN Code — 8 digits</text>
-      <text style={TS("#4ade80")} x="340" y="228" textAnchor="middle" dominantBaseline="central">GST Rate · Basic Custom Duty · Customer Duty · BIS Principles · Case Law · Notes</text>
-      <rect x="40" y="272" width="186" height="34" rx="6" fill="#1c1204" stroke="#d97706" strokeWidth="0.5" />
-      <text style={TH("#fcd34d")} x="133" y="289" textAnchor="middle" dominantBaseline="central">Bulk upload</text>
-      <rect x="247" y="272" width="186" height="34" rx="6" fill="#1a1a20" stroke="#52525b" strokeWidth="0.5" />
-      <text style={TH("#a1a1aa")} x="340" y="289" textAnchor="middle" dominantBaseline="central">Save & export results</text>
-      <rect x="454" y="272" width="186" height="34" rx="6" fill="#1a1a20" stroke="#52525b" strokeWidth="0.5" />
-      <text style={TH("#a1a1aa")} x="547" y="289" textAnchor="middle" dominantBaseline="central">View duty benefits</text>
     </svg>
   );
 }
 
 function HsnArchDiagram() {
-  const TH = (c) => ({ fontFamily: "DM Sans, sans-serif", fontSize: 13, fontWeight: 500, fill: c });
-  const TS = (c) => ({ fontFamily: "DM Mono, monospace", fontSize: 11, fill: c });
-  const A = "rgba(255,255,255,0.22)";
+  const layers = [
+    { y: 30,  h: 52, label: "User Interface",     sub: "Search · Guided Steps · Results",  fill: "#0c1e31", stroke: "#2563eb", txt: "#93c5fd" },
+    { y: 104, h: 52, label: "Classification Logic", sub: "Section → Chapter → Heading → Sub", fill: "#0a1f1e", stroke: "#0d9488", txt: "#5eead4" },
+    { y: 178, h: 52, label: "Central Database",   sub: "HSN Codes · Duties · BIS · Case Law", fill: "#1c1204", stroke: "#f59e0b", txt: "#fde68a" },
+    { y: 252, h: 52, label: "Admin Backend",      sub: "Manage Sections · Upload · Publish",  fill: "#1a1335", stroke: "#7c3aed", txt: "#c4b5fd" },
+  ];
+  const arrowY = [82, 156, 230];
   return (
-    <svg width="100%" viewBox="0 0 680 400">
-      <defs><marker id="aa" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke={A} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></marker></defs>
-      <rect x="20" y="20" width="185" height="350" rx="12" fill="#111113" stroke="#27272a" strokeWidth="0.5" />
-      <text style={TH("rgba(255,255,255,0.50)")} x="113" y="46" textAnchor="middle">Admin backend</text>
-      {[["#0c1e31", "#2563eb", "#93c5fd", "HSN Module", 70], ["#0a1f1e", "#0d9488", "#5eead4", "Sections", 128], ["#0a1f1e", "#0d9488", "#5eead4", "Chapters", 176], ["#0a1f1e", "#0d9488", "#5eead4", "Headings", 224], ["#1a1335", "#7c3aed", "#c4b5fd", "Case Law", 272], ["#1a1335", "#7c3aed", "#c4b5fd", "BIS Principles", 320]].map(([f, s, t, l, y]) => (<g key={l}><rect x="36" y={y} width="153" height="36" rx="6" fill={f} stroke={s} strokeWidth="0.5" /><text style={TH(t)} x="113" y={y + 18} textAnchor="middle" dominantBaseline="central">{l}</text></g>))}
-      <rect x="250" y="140" width="180" height="120" rx="12" fill="#1c1204" stroke="#d97706" strokeWidth="0.5" />
-      <text style={TH("#fcd34d")} x="340" y="175" textAnchor="middle" dominantBaseline="central">Central database</text>
-      <text style={TS("#f59e0b")} x="340" y="198" textAnchor="middle" dominantBaseline="central">HSN codes + duties</text>
-      <text style={TS("#f59e0b")} x="340" y="216" textAnchor="middle" dominantBaseline="central">policies + notes</text>
-      <text style={TS("#f59e0b")} x="340" y="234" textAnchor="middle" dominantBaseline="central">case law + BIS</text>
-      <line x1="205" y1="200" x2="250" y2="200" stroke={A} strokeWidth="1" markerEnd="url(#aa)" />
-      <rect x="475" y="20" width="185" height="350" rx="12" fill="#111113" stroke="#27272a" strokeWidth="0.5" />
-      <text style={TH("rgba(255,255,255,0.50)")} x="568" y="46" textAnchor="middle">Public tool</text>
-      {[["#0c1e31", "#2563eb", "#93c5fd", "Search bar", 70], ["#0a1f1e", "#0d9488", "#5eead4", "Section step", 128], ["#0a1f1e", "#0d9488", "#5eead4", "Chapter step", 176], ["#0a1f1e", "#0d9488", "#5eead4", "Heading step", 224], ["#0a1f1e", "#0d9488", "#5eead4", "Subheading step", 272], ["#0a1e0e", "#16a34a", "#86efac", "Final HSN + duties", 320]].map(([f, s, t, l, y]) => (<g key={l}><rect x="491" y={y} width="153" height="36" rx="6" fill={f} stroke={s} strokeWidth="0.5" /><text style={TH(t)} x="568" y={y + 18} textAnchor="middle" dominantBaseline="central">{l}</text></g>))}
-      <line x1="430" y1="200" x2="475" y2="200" stroke={A} strokeWidth="1" markerEnd="url(#aa)" />
-      <text style={TS("rgba(255,255,255,0.18)")} x="113" y="388" textAnchor="middle">Admin enters data</text>
-      <text style={TS("rgba(255,255,255,0.18)")} x="340" y="278" textAnchor="middle">Single source</text>
-      <text style={TS("rgba(255,255,255,0.18)")} x="568" y="388" textAnchor="middle">User queries data</text>
+    <svg width="100%" viewBox="0 0 680 330">
+      <defs>
+        <marker id="aa2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </marker>
+        <filter id="layer-glow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+      </defs>
+      {layers.map((l, i) => (
+        <g key={l.label}>
+          <rect x={60} y={l.y} width={560} height={l.h} rx={12} fill={l.fill} stroke={l.stroke} strokeWidth={1} filter={i === 2 ? "url(#layer-glow)" : undefined} />
+          {/* Left badge */}
+          <rect x={60} y={l.y} width={6} height={l.h} rx="3" fill={l.stroke} opacity={0.8} />
+          {/* Layer number */}
+          <text x={90} y={l.y + l.h / 2 - 5} style={{ fontFamily: "DM Mono, monospace", fontSize: 9, fill: l.stroke, opacity: 0.7, letterSpacing: "0.1em" }}>LAYER {i + 1}</text>
+          <text x={90} y={l.y + l.h / 2 + 13} style={{ fontFamily: "DM Sans, sans-serif", fontSize: 14, fontWeight: 700, fill: l.txt }}>{l.label}</text>
+          <text x={620} y={l.y + l.h / 2 + 5} textAnchor="end" style={{ fontFamily: "DM Mono, monospace", fontSize: 10, fill: l.stroke, opacity: 0.6 }}>{l.sub}</text>
+        </g>
+      ))}
+      {/* Bidirectional arrows */}
+      {arrowY.map((y, i) => (
+        <g key={y}>
+          <line x1={340} y1={y} x2={340} y2={y + 21} stroke="rgba(255,255,255,0.12)" strokeWidth="1" markerEnd="url(#aa2)" />
+          <circle cx={340} cy={y + 11} r={4} fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)" strokeWidth="0.5" />
+        </g>
+      ))}
+      <text x={340} y={318} textAnchor="middle" style={{ fontFamily: "DM Mono, monospace", fontSize: 10, fill: "rgba(255,255,255,0.18)", letterSpacing: "0.08em" }}>DATA FLOWS: ADMIN LAYER → DB → LOGIC → UI</text>
     </svg>
   );
 }
@@ -298,10 +484,13 @@ function HsnArchDiagram() {
 // ═══════════════════════════════════════════════════════════════════════════════
 const erpSections = [
   { id: "overview", label: "Overview" },
+  { id: "personas", label: "User Personas" },
   { id: "problem", label: "The Problem" },
+  { id: "scenarios", label: "User Scenarios" },
   { id: "process", label: "Process" },
   { id: "workflow", label: "User Workflow" },
   { id: "architecture", label: "Info Architecture" },
+  { id: "competitive", label: "Market Analysis" },
   { id: "design-system", label: "Design System" },
   { id: "modules", label: "The Modules" },
   { id: "decisions", label: "Key Decisions" },
@@ -310,10 +499,11 @@ const erpSections = [
 
 const hsnSections = [
   { id: "overview", label: "Overview" },
+  { id: "personas", label: "User Personas" },
   { id: "problem", label: "The Problem" },
-  { id: "process", label: "Process" },
   { id: "architecture", label: "System Architecture" },
   { id: "user-workflow", label: "User Workflow" },
+  { id: "competitive", label: "Competitive View" },
   { id: "admin-workflow", label: "Admin Workflow" },
   { id: "screens", label: "Key Screens" },
   { id: "decisions", label: "Key Decisions" },
@@ -322,15 +512,19 @@ const hsnSections = [
 
 const habitSections = [
   { id: "overview", label: "01 Executive Summary" },
-  { id: "problem", label: "02 The Challenge" },
-  { id: "solution", label: "03 The Ecosystem" },
-  { id: "innovations", label: "04 Social & AI Logic" },
-  { id: "scenarios", label: "05 User Scenarios" },
-  { id: "workflow", label: "06 System Logic" },
-  { id: "user-ui", label: "07 Consumer Experience" },
-  { id: "business-ui", label: "08 Merchant Interface" },
-  { id: "outcomes", label: "09 Retrospective" },
+  { id: "personas", label: "02 User Personas" },
+  { id: "problem", label: "03 The Challenge" },
+  { id: "architecture", label: "04 Info Architecture" },
+  { id: "solution", label: "05 The Ecosystem" },
+  { id: "innovations", label: "06 Social & AI Logic" },
+  { id: "scenarios", label: "07 User Scenarios" },
+  { id: "competitive", label: "08 Market Gap" },
+  { id: "workflow", label: "09 System Logic" },
+  { id: "user-ui", label: "10 Consumer Experience" },
+  { id: "business-ui", label: "11 Merchant Interface" },
+  { id: "outcomes", label: "12 Retrospective" },
 ];
+
 
 const erpModules = [
   { label: "HR Administration", desc: "560 employees, attendance tracking, grievance management, department distribution, and upcoming celebrations.", img: "/case-studies/erp/HR_Dashboard.jpg", caption: "HR Admin Dashboard" },
@@ -651,19 +845,32 @@ export default function CaseStudy() {
           {isHsn ? (
             /* ━━━━━━━━━━━━━━━━━━━━━ HSN CONTENT ━━━━━━━━━━━━━━━━━━━━━ */
             <>
-              <motion.section
-                id="overview"
-                style={sec}
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              >
+              <motion.section id="overview" style={sec} initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}>
                 <p style={eyebrow}>01 — Overview</p>
                 <AccentBar />
                 <h2 style={h2}>A two-sided platform for HSN classification — admin backend and public search tool.</h2>
                 <p style={body}>The HSN Classification System is a web-based tool for Indian importers, exporters, and businesses to find the correct 8-digit HSN code for any product, along with GST rates, basic customs duty, BIS principles, and case law.</p>
                 <p style={body}>I designed both sides end-to-end: a <span style={S}>guided 5-step public classification wizard</span> and a <span style={S}>secure admin backend</span> where the team manages all HSN data — sections, chapters, headings, duty rates, and legal references.</p>
               </motion.section>
+
+              <motion.section id="personas" style={sec} variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}>
+                <p style={eyebrow}>02 — User Personas</p>
+                <AccentBar />
+                <h2 style={h2}>Understanding the spectrum of compliance needs.</h2>
+                <PersonaCard 
+                  name="Arjun Mehta" role="Small Business Owner (Importer)" 
+                  bio="I just want to get my goods through customs without getting a legal notice for wrong HSN filing."
+                  painPoints={["Doesn't understand complex legal jargon", "Fear of high penalties", "No time for manual PDF searching"]}
+                  goals={["Find code in < 2 mins", "Understand final duty costs", "Save codes for future reference"]}
+                />
+                <PersonaCard 
+                  name="Sanjay Gupta" role="Professional CA / Tax Consultant" 
+                  bio="I need a source of truth for BIS principles and Case Laws to advise my clients accurately."
+                  painPoints={["Ambiguity in category overlap", "Scattered legal references", "Need for bulk classification"]}
+                  goals={["Access to case law history", "Verify BIS compliance", "Export reports for audit"]}
+                />
+              </motion.section>
+
 
               <motion.section id="problem" style={sec} variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}>
                 <p style={eyebrow}>02 — The Problem</p>
@@ -719,7 +926,23 @@ export default function CaseStudy() {
                 <CaseImage src="/case-studies/hsn/hsn-workflow.jpg" caption="HSN Classification Finder — 5-step guided workflow" label="0.1 Classification workflow" />
               </motion.section>
 
+              <motion.section id="competitive" style={sec} variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}>
+                <p style={eyebrow}>06 — Competitive View</p>
+                <AccentBar />
+                <h2 style={h2}>Solving the usability gap in government-adjacent tools.</h2>
+                <ComparisonTable 
+                  headers={["Feature", "Govt. Portals", "Third-party Tools", "Our Solution"]}
+                  rows={[
+                    ["Guided Flow", "None (Manual Search)", "Limited", "5-Step Wizard"],
+                    ["Legal Context", "Scattered", "Subscription only", "Integrated Case Law"],
+                    ["Mobile UX", "Poor", "Average", "Fully Responsive"],
+                    ["Data Freshness", "Real-time", "Lagging", "Real-time Admin Sync"]
+                  ]}
+                />
+              </motion.section>
+
               <motion.section id="admin-workflow" style={sec} variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}>
+
                 <p style={eyebrow}>06 — Admin Workflow</p>
                 <AccentBar />
                 <h2 style={h2}>The backend that powers it all.</h2>
@@ -793,8 +1016,27 @@ export default function CaseStudy() {
                 </div>
               </motion.section>
 
+              <motion.section id="personas" style={sec} variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}>
+                <p style={eyebrow}>02 — User Personas</p>
+                <AccentBar />
+                <h2 style={h2}>Designing for the 'Introverted Achiever'.</h2>
+                <PersonaCard 
+                  name="Sarah" role="The Introverted Achiever" 
+                  bio="I want to build better habits but I find social leaderboards intimidating and performance pressure counter-productive."
+                  painPoints={["Social anxiety on public boards", "Loss of motivation after one missed day", "Generic 'one-size-fits-all' habit suggestions"]}
+                  goals={["Privacy through Ghost Mode", "Witty, human AI interaction (Sassy Mode)", "Tangible real-world rewards"]}
+                />
+                <PersonaCard 
+                  name="David" role="The Social Motivator" 
+                  bio="I thrive on competition. If I see my friends doing better, it pushes me to complete my daily stack."
+                  painPoints={["Lack of localized competition", "Boring tracking interfaces", "Rewards that don't feel 'real'"]}
+                  goals={["Climb local leaderboards", "Earn discounts at his favorite gym", "Share progress streaks"]}
+                />
+              </motion.section>
+
+
               <motion.section id="problem" style={sec} variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}>
-                <p style={eyebrow}>02 — The Challenge</p>
+                <p style={eyebrow}>03 — The Challenge</p>
                 <AccentBar />
                 <h2 style={h2}>The "Blank Canvas" Anxiety & The Retention Gap.</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
@@ -809,6 +1051,14 @@ export default function CaseStudy() {
                 </div>
                 <Callout eyebrow="Problem Statement" text="How might we create a symbiotic ecosystem where a user's personal growth directly fuels local business engagement?" />
               </motion.section>
+
+              <motion.section id="architecture" style={sec} variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}>
+                <p style={eyebrow}>04 — Info Architecture</p>
+                <AccentBar />
+                <h2 style={h2}>The Dual-Engine Structure.</h2>
+                <p style={body}>The architecture is divided into two primary engines: the <span style={S}>Habit Engine</span> (AI stacking, streak logic) and the <span style={S}>Reward Engine</span> (B2B marketplace, QR validation).</p>
+              </motion.section>
+
 
               <motion.section id="solution" style={sec} variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}>
                 <p style={eyebrow}>03 — The Ecosystem</p>
@@ -857,7 +1107,7 @@ export default function CaseStudy() {
               </motion.section>
 
               <motion.section id="scenarios" style={sec} variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}>
-                <p style={eyebrow}>05 — User Scenarios</p>
+                <p style={eyebrow}>07 — User Scenarios</p>
                 <AccentBar />
                 <h2 style={h2}>The journey from discipline to delight.</h2>
                 <div className="space-y-12 mt-10">
@@ -873,6 +1123,22 @@ export default function CaseStudy() {
                   </div>
                 </div>
               </motion.section>
+
+              <motion.section id="competitive" style={sec} variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}>
+                <p style={eyebrow}>08 — Market Gap</p>
+                <AccentBar />
+                <h2 style={h2}>Why Habitly?</h2>
+                <ComparisonTable 
+                  headers={["Feature", "Habitica", "Streaks", "Habitly"]}
+                  rows={[
+                    ["Rewards", "Digital / In-game", "None", "Real-world B2B"],
+                    ["AI Support", "Limited", "None", "Claude-powered Stacking"],
+                    ["Social", "Heavy Gamification", "Minimalist", "Hybrid (Ghost/Sassy)"],
+                    ["B2B Loop", "None", "None", "Merchant Dashboard"]
+                  ]}
+                />
+              </motion.section>
+
 
               <motion.section id="workflow" style={sec} variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}>
                 <p style={eyebrow}>06 — System Logic</p>
@@ -1001,13 +1267,7 @@ export default function CaseStudy() {
           ) : (
             /* ━━━━━━━━━━━━━━━━━━━━━ ERP CONTENT ━━━━━━━━━━━━━━━━━━━━━ */
             <>
-              <motion.section
-                id="overview"
-                style={sec}
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              >
+              <motion.section id="overview" style={sec} initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}>
                 <p style={eyebrow}>01 — Overview</p>
                 <AccentBar />
                 <h2 style={h2}>A complete ERP designed end to end, solo.</h2>
@@ -1015,8 +1275,27 @@ export default function CaseStudy() {
                 <p style={body}>I was brought in as the sole designer to create an enterprise platform that would unify every department. The result: 10 role-specific dashboards, a shared design system, and a fully interactive Figma prototype — all delivered for development handoff.</p>
               </motion.section>
 
+              <motion.section id="personas" style={sec} variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}>
+                <p style={eyebrow}>02 — User Personas</p>
+                <AccentBar />
+                <h2 style={h2}>Bridging the literacy gap between floor and office.</h2>
+                <PersonaCard 
+                  name="Rajesh Kumar" role="Factory Floor Supervisor" 
+                  bio="I need to report material inward quickly so the workshop doesn't stop, but I'm not very tech-savvy."
+                  painPoints={["Complex forms", "Small text on mobile", "Unreliable internet"]}
+                  goals={["One-click reporting", "Visual status indicators", "Offline sync capability"]}
+                />
+                <PersonaCard 
+                  name="Anjali Sharma" role="HR & Finance Head" 
+                  bio="I need to see the departmental distribution of costs and employee grievances without asking 5 people for reports."
+                  painPoints={["Data silos", "Delayed reporting", "Manual Excel work"]}
+                  goals={["Real-time cost dashboard", "Automated grievance tracking", "Exportable audit logs"]}
+                />
+              </motion.section>
+
+
               <motion.section id="problem" style={sec} variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}>
-                <p style={eyebrow}>02 — The Problem</p>
+                <p style={eyebrow}>03 — The Problem</p>
                 <AccentBar />
                 <h2 style={h2}>Six departments. Zero shared system.</h2>
                 <p style={body}>Before this ERP, operations were held together by spreadsheets, WhatsApp messages, and paper records.</p>
@@ -1030,6 +1309,19 @@ export default function CaseStudy() {
                 </div>
                 <Callout eyebrow="Core challenge" text="Understanding 10 completely different user roles — each with different needs, different tech literacy, and different workflows." />
               </motion.section>
+
+              <motion.section id="scenarios" style={sec} variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}>
+                <p style={eyebrow}>04 — User Scenarios</p>
+                <AccentBar />
+                <h2 style={h2}>Designing for the 'Field' Reality.</h2>
+                <div className="space-y-8 mt-8">
+                  <div className="p-6 rounded-xl bg-white/5 border-l-4 border-green-500">
+                    <h4 className="text-white/90 font-bold mb-2 text-sm uppercase">Scenario: Emergency Requisition</h4>
+                    <p style={body}>A site engineer discovers a material shortage at 4 PM. Instead of 5 WhatsApp calls, he opens the ERP, checks stock in the main store, and files a requisition. The supervisor sees a 'High Priority' alert on his Pending Actions widget and approves it instantly.</p>
+                  </div>
+                </div>
+              </motion.section>
+
 
               <motion.section id="process" style={sec} variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}>
                 <p style={eyebrow}>03 — Process</p>
@@ -1058,7 +1350,7 @@ export default function CaseStudy() {
               </motion.section>
 
               <motion.section id="architecture" style={sec} variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}>
-                <p style={eyebrow}>05 — Information Architecture</p>
+                <p style={eyebrow}>07 — Information Architecture</p>
                 <AccentBar />
                 <h2 style={h2}>Six modules. One foundation.</h2>
                 <p style={body}><span style={S}>Master Data is the foundation</span> every module depends on. Commercial modules (Sales, Project, HR) handle people; operational modules (Finance, Workshop, Super Admin) handle execution.</p>
@@ -1066,6 +1358,22 @@ export default function CaseStudy() {
                   <ErpIaDiagram />
                 </DiagramBox>
               </motion.section>
+
+              <motion.section id="competitive" style={sec} variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}>
+                <p style={eyebrow}>08 — Market Analysis</p>
+                <AccentBar />
+                <h2 style={h2}>Custom ERP vs. Off-the-shelf Solutions.</h2>
+                <ComparisonTable 
+                  headers={["Aspect", "SAP / Odoo", "Excel / WhatsApp", "Custom ERP (Indiana)"]}
+                  rows={[
+                    ["Cost", "Extremely High", "Free", "Medium (One-time)"],
+                    ["Customization", "Rigid / Expensive", "Total", "Built for current workflow"],
+                    ["Learning Curve", "High", "Low", "Optimized for factory staff"],
+                    ["Integration", "Complex", "None", "Native shared database"]
+                  ]}
+                />
+              </motion.section>
+
 
               <motion.section id="design-system" style={sec} variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }}>
                 <p style={eyebrow}>06 — Design System</p>
